@@ -35,7 +35,7 @@ public class View {
     public void displayUI() {
         frame.setTitle("Music Player App");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         frame.setVisible(true);
     }
