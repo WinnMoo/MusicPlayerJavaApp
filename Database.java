@@ -23,6 +23,7 @@ public class Database {
 			     //instance does not exit
 
     Statement stat;  //stat can be reused in every operation
+    String query;
 
     public Database()throws IOException, ClassNotFoundException, 
                             SQLException, Exception
@@ -39,5 +40,26 @@ public class Database {
             } catch (SQLException ex) {
                 ex.printStackTrace();
         }      
+    }
+    
+    /**
+     * This method is to run only once to create the tables for the database.
+     */
+    public void createTables() {
+        
+    }
+    
+    /**
+     * 
+     */
+    public void addSong(String songName) {
+        
+    }
+    
+    /**
+     * 
+     */
+    public void removeSong(String songName) {
+        
     }
 }
