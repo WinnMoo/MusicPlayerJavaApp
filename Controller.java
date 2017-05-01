@@ -19,7 +19,7 @@ public class Controller {
      * Construct the instance variables.
      */
     public Controller() {
-        appView = new View();
+        appView = new View(this);
         appModel = new Model(); // db is initalized in Model's class constructor
     }
     
@@ -30,9 +30,15 @@ public class Controller {
         appView.displayUI();
     }
     
-    class MyJButton extends JButton {
+    public static class MyJButton extends JButton {
         
-    }
+        JButton currentButton;
+        
+        public MyJButton(String textToDisplay) {
+            currentButton = new JButton(textToDisplay);
+        }
+
+    }   
     
     
 }
