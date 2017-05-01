@@ -5,6 +5,8 @@
  */
 package musicplayerapp;
 
+import javax.swing.JButton;
+
 /**
  *
  * @author stevengarcia
@@ -27,4 +29,10 @@ public class Controller {
     public void startApp() {
         appView.displayUI();
     }
+    
+    class MyJButton extends JButton {
+        
+    }
+    
+    
 }

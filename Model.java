@@ -35,10 +35,19 @@ public class Model {
      * @param primaryKey the unique identifier which shall be determined by event
      * of user right clicking the song in the GUI
      */
-    public void removeRow(int primaryKey) {
+    public void removeSong(int primaryKey) {
         /*
         String query = "DELETE FROM TableName WHERE id = " + primaryKey;
         stat.execute(query);
         */
     }
+    
+    /**
+     * 
+     */
+    public void addSong() {
+        
+    }
+    
+ 
 }

@@ -14,6 +14,12 @@ import javax.swing.*;
 public class View {
     private JFrame frame;
     
+    private boolean songIsPlaying;
+    // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
+    private JButton playButton; 
+    private JButton stopButton;
+    private JButton previousSongButton;
+    private JButton skipSongButton;
     
     private final int FRAME_WIDTH;
     private final int FRAME_HEIGHT;
@@ -39,4 +45,40 @@ public class View {
         
         frame.setVisible(true);
     }
+    
+    /**
+     * 
+     */
+    public void playButtonWasPressed() {
+        
+    }
+    
+    /**
+     * 
+     */
+    public void skipButtonWasPressed() {
+        
+    }
+    
+    /**
+     * 
+     */
+    public void previousButtonWasPressed() {
+        
+    }
+    
+    /**
+     * Collapse the menu bar displaying the options.
+     */
+    public void menuBarWasPressed() {
+        
+    }
+    
+    /**
+     * 
+     */
+    public void producePopupMenu() {
+        
+    }
+    
 }
