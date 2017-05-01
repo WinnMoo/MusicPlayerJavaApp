@@ -67,6 +67,16 @@ public class View {
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
+
+        playButton.setActionCommand("0");
+        previousSongButton.setActionCommand("1");
+        skipSongButton.setActionCommand("2");
+        stopButton.setActionCommand("3");
+
+        playButton.addActionListener(AddInterestListener);
+        previousSongButton.addActionListener(AddInterestListener);
+        skipSongButton.addActionListener(AddInterestListener);
+        stopButton.addActionListener(AddInterestListener);
         
         bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
         
