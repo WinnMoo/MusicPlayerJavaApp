@@ -5,6 +5,7 @@
  */
 package musicplayerapp;
 
+import java.awt.BorderLayout;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
 
@@ -16,11 +17,17 @@ public class View {
     private JFrame frame;
     private Controller appController;
     
+    private JPanel topMenuPanel;
+    private JPanel topButtonsPanel;
+    private JPanel bottomMenuPanel;
+    private JPanel bottomButtonsPanel;
+    
     private boolean songIsPlaying;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     private MyJButton playButton; 
     private MyJButton previousSongButton;
     private MyJButton skipSongButton;
+    private MyJButton stopButton;
     
     private final int FRAME_WIDTH;
     private final int FRAME_HEIGHT;
@@ -33,10 +40,16 @@ public class View {
         frame = new JFrame();
         this.appController = appController;
         
+        topMenuPanel = new JPanel(new BorderLayout());
+        topButtonsPanel = new JPanel();
+        bottomMenuPanel = new JPanel(new BorderLayout());
+        bottomButtonsPanel = new JPanel();
+        
         playButton =  new MyJButton("Play");
         songIsPlaying = false;
         previousSongButton = new MyJButton("Previous");
         skipSongButton = new MyJButton("Skip");
+        stopButton = new MyJButton("Stop");
         
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
@@ -49,6 +62,15 @@ public class View {
         frame.setTitle("Music Player App");
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+        
+        bottomButtonsPanel.add(previousSongButton);
+        bottomButtonsPanel.add(playButton);
+        bottomButtonsPanel.add(skipSongButton);
+        bottomButtonsPanel.add(stopButton);
+        
+        bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
+        
+        frame.add(bottomMenuPanel);
         
         frame.setVisible(true);
     }
@@ -87,5 +109,4 @@ public class View {
     public void producePopupMenu() {
         
     }
-    
 }

@@ -17,6 +17,5 @@ public class MusicPlayerApp {
     public static void main(String[] args) {
         Controller appController = new Controller();
         appController.startApp();
-    }
-    
+    } 
 }

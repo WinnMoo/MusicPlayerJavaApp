@@ -5,7 +5,10 @@
  */
 package musicplayerapp;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -32,13 +35,20 @@ public class Controller {
     
     public static class MyJButton extends JButton {
         
-        JButton currentButton;
         
         public MyJButton(String textToDisplay) {
-            currentButton = new JButton(textToDisplay);
+            this.setText(textToDisplay);
+            
         }
-
+        
+        class AddInterestListener implements ActionListener {
+            public void actionPerformed(ActionEvent event) {
+                
+            }
+            
+            private void createComponents() {
+                
+            }        
+        } 
     }   
-    
-    
 }
