@@ -8,6 +8,8 @@ package musicplayerapp;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 /**
  *
@@ -15,6 +17,7 @@ import java.util.logging.Logger;
  */
 public class Model {
     private Database appDB;
+     BasicPlayer bp = new BasicPlayer();
     
     public Model() {
         
@@ -48,12 +51,45 @@ public class Model {
     public void addSong() {
         
     }
+
+    /**
+     * 
+     * @throws BasicPlayerException 
+     */
+    public void playSong()throws BasicPlayerException{
+        //The argument for play is a file
+        //bp.play();
+    }
     
     /**
      * 
+     * @throws BasicPlayerException 
      */
-    public void playSong() {
-        
+    public void stopSong() throws BasicPlayerException{
+        bp.stop();
     }
+
+    /**
+     * 
+     */
+    public void skipSong(){
+        //Same process for previous
+    }
+
+    /**
+     * 
+     */
+    public void previousSong(){
+        //No function to play previous song
+        //Must keep track of current song and the previous song
+
+        //1. Stop current song bp.stop()
+        //2. Find previous song file 
+        //3. Open song file bp.open(File file)
+        //3. Play previous song file bp.play(previousSongFile)
+    }
+
+    //volume adjustment function to be added here
+    //Function to adjust volume: bp.setGain(double gain);
     
 }

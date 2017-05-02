@@ -38,28 +38,28 @@ public class Controller {
      * 
      */
     public void playSong() {
-        appView.playButtonWasPressed();
+        appView.updatePlayButtonUI();
     }
     
     /**
      * 
      */
     public void previousSong() {
-        appView.previousButtonWasPressed();
+        appView.updatePreviousButtonUI();
     }
     
     /**
      * 
      */
     public void skipSong() {
-        appView.skipButtonWasPressed();
+        appView.updateSkipButtonUI();
     }
     
     /**
      * 
      */
     public void stopSong() {
-        appView.stopButtonWasPressed();
+        appView.updateStopButtonUI();
     }
     
     class MyJButton extends JButton {

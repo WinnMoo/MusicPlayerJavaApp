@@ -32,9 +32,7 @@ public class View {
     
     private final int FRAME_WIDTH;
     private final int FRAME_HEIGHT;
-    
-//  private BasicPlayer bp;
-    
+        
     /**
      * Construct instance variables and set the width
      * and height constants for the frame.
@@ -55,8 +53,6 @@ public class View {
         previousSongButton = appController.new MyJButton("Previous");
         skipSongButton = appController.new MyJButton("Skip");
         stopButton = appController.new MyJButton("Stop");
-        
-//      bp = new BasicPlayer();
         
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
@@ -87,55 +83,38 @@ public class View {
         frame.setVisible(true);
     }
     
-    //Might want to add a pause button/function. Pause is different than stop
-
-    //Function to adjust volume: bp.setGain(double gain);
-
-    
     /**
-     * 
+     * Updates play button UI as to show the image for pause
+     * for the button. Shows the corresponding time
+     * for the song on the top panel.
      */
-    public void playButtonWasPressed() {
-        // bp.play();
+    public void updatePlayButtonUI() {
+
     }
     
     /**
      * 
      */
-    public void previousButtonWasPressed() {
-        //No function to play previous song
-        //Must keep track of current song and the previous song
-
-        //1. Stop current song bp.stop()
-        //2. Find previous song file 
-        //3. Open song file bp.open(File file)
-        //3. Play previous song file bp.play(previousSongFile)
+    public void updatePreviousButtonUI() {
+    
     }
     
     /**
      * 
      */
-    public void skipButtonWasPressed() {
-        //Same process for previous
+    public void updateSkipButtonUI() {
+        
     }
 
     /**
     *
     */
-    public void stopButtonWasPressed(){
-//      bp.stop();
+    public void updateStopButtonUI(){
 
     }
     
     /**
      * Collapse the menu bar displaying the options.
-     */
-    public void menuBarWasPressed() {
-        
-    }
-    
-    /**
-     * 
      */
     public void producePopupMenu() {
         
