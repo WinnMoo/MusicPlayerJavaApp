@@ -33,7 +33,7 @@ public class Controller {
         appView.displayUI();
     }
     
-    public static class MyJButton extends JButton {
+    public class MyJButton extends JButton {
         
         
         public MyJButton(String textToDisplay) {
@@ -43,7 +43,7 @@ public class Controller {
         
         class AddInterestListener implements ActionListener {
             public void actionPerformed(ActionEvent event) {
-                int action = Integer.parseInt(Event.getActionCommand());
+                int action = Integer.parseInt(event.getActionCommand());
                 switch(action){
                     case 0: appView.playButtonWasPressed();
                             break;
@@ -62,7 +62,7 @@ public class Controller {
         } 
     }
     
-    public static class MyFrame extends JFrame {
+    public class MyFrame extends JFrame {
         
     }
 }

@@ -45,11 +45,13 @@ public class View {
         bottomMenuPanel = new JPanel(new BorderLayout());
         bottomButtonsPanel = new JPanel();
         
-        playButton =  new MyJButton("Play");
         songIsPlaying = false;
-        previousSongButton = new MyJButton("Previous");
-        skipSongButton = new MyJButton("Skip");
-        stopButton = new MyJButton("Stop");
+        
+        // instantiate inner class of MyJButton
+        playButton =  appController.new MyJButton("Play");
+        previousSongButton = appController.new MyJButton("Previous");
+        skipSongButton = appController.new MyJButton("Skip");
+        stopButton = appController.new MyJButton("Stop");
         
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
