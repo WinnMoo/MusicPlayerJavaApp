@@ -8,6 +8,8 @@ package musicplayerapp;
 import java.awt.BorderLayout;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
+import javazoom.jlgui.basicplayer.BasicPlayer;
+import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 /**
  *
@@ -53,6 +55,8 @@ public class View {
         skipSongButton = appController.new MyJButton("Skip");
         stopButton = appController.new MyJButton("Stop");
         
+        BasicPlayer bp = new BasicPlayer();
+
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
     }
@@ -87,32 +91,44 @@ public class View {
         frame.setVisible(true);
     }
     
+    //Might want to add a pause button/function. Pause is different than stop
+
+    //Function to adjust volume: bp.setGain(double gain);
+
+    
     /**
      * 
      */
-    public void playButtonWasPressed() {
-
+    public void playButtonWasPressed() throws BasicPlayerException{
+        //The argument for play is a file
+        bp.play();
     }
     
     /**
      * 
      */
     public void previousButtonWasPressed() {
-        
+        //No function to play previous song
+        //Must keep track of current song and the previous song
+
+        //1. Stop current song bp.stop()
+        //2. Find previous song file 
+        //3. Open song file bp.open(File file)
+        //3. Play previous song file bp.play(previousSongFile)
     }
     
     /**
      * 
      */
     public void skipButtonWasPressed() {
-        
+        //Same process for previous
     }
 
     /**
     *
     */
     public void stopButtonWasPressed(){
-        
+        bp.stop();
     }
     
     /**
