@@ -43,8 +43,17 @@ public class Controller {
         
         class AddInterestListener implements ActionListener {
             public void actionPerformed(ActionEvent event) {
-                // switch statements
-                
+                int action = Integer.parseInt(Event.getActionCommand());
+                switch(action){
+                    case 0: appView.playButtonWasPressed();
+                            break;
+                    case 1: appView.previousButtonWasPressed();
+                            break;
+                    case 2: appView.skipButtonWasPressed();
+                            break;
+                    case 3: appView.stopButtonWasPressed();
+                            break;
+                }
             }
             
             private void createComponents() {

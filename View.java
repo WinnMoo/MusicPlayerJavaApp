@@ -89,6 +89,13 @@ public class View {
      * 
      */
     public void playButtonWasPressed() {
+
+    }
+    
+    /**
+     * 
+     */
+    public void previousButtonWasPressed() {
         
     }
     
@@ -98,11 +105,11 @@ public class View {
     public void skipButtonWasPressed() {
         
     }
-    
+
     /**
-     * 
-     */
-    public void previousButtonWasPressed() {
+    *
+    */
+    public void stopButtonWasPressed(){
         
     }
     
