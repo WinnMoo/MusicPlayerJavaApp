@@ -6,10 +6,9 @@
 package musicplayerapp;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
-import javazoom.jlgui.basicplayer.BasicPlayer;
-import javazoom.jlgui.basicplayer.BasicPlayerException;
 
 /**
  *
@@ -34,6 +33,8 @@ public class View {
     private final int FRAME_WIDTH;
     private final int FRAME_HEIGHT;
     
+//  private BasicPlayer bp;
+    
     /**
      * Construct instance variables and set the width
      * and height constants for the frame.
@@ -43,9 +44,9 @@ public class View {
         this.appController = appController;
         
         topMenuPanel = new JPanel(new BorderLayout());
-        topButtonsPanel = new JPanel();
+        topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bottomMenuPanel = new JPanel(new BorderLayout());
-        bottomButtonsPanel = new JPanel();
+        bottomButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         
         songIsPlaying = false;
         
@@ -55,7 +56,7 @@ public class View {
         skipSongButton = appController.new MyJButton("Skip");
         stopButton = appController.new MyJButton("Stop");
         
-        BasicPlayer bp = new BasicPlayer();
+//      bp = new BasicPlayer();
         
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
@@ -94,9 +95,8 @@ public class View {
     /**
      * 
      */
-    public void playButtonWasPressed() throws BasicPlayerException{
-        //The argument for play is a file
-        bp.play();
+    public void playButtonWasPressed() {
+        // bp.play();
     }
     
     /**
@@ -123,7 +123,8 @@ public class View {
     *
     */
     public void stopButtonWasPressed(){
-        bp.stop();
+//      bp.stop();
+
     }
     
     /**
