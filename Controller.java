@@ -69,7 +69,7 @@ public class Controller {
             
         }
         
-        class AddInterestListener implements ActionListener {
+        class ClickListener implements ActionListener {
             public void actionPerformed(ActionEvent event) {
                 int action = Integer.parseInt(event.getActionCommand());
                 switch(action){
@@ -85,7 +85,8 @@ public class Controller {
             }
             
             private void createComponents() {
-                
+                ActionListener listener = new ClickListener();
+                addActionListener(listener);
             }        
         } 
     }
