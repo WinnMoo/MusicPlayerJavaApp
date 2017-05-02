@@ -56,7 +56,7 @@ public class View {
         stopButton = appController.new MyJButton("Stop");
         
         BasicPlayer bp = new BasicPlayer();
-
+        
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
     }
@@ -78,7 +78,7 @@ public class View {
         previousSongButton.setActionCommand("1");
         skipSongButton.setActionCommand("2");
         stopButton.setActionCommand("3");
-
+        
         playButton.addActionListener(AddInterestListener);
         previousSongButton.addActionListener(AddInterestListener);
         skipSongButton.addActionListener(AddInterestListener);

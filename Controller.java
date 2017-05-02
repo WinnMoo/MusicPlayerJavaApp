@@ -33,7 +33,35 @@ public class Controller {
         appView.displayUI();
     }
     
-    public class MyJButton extends JButton {
+    /**
+     * 
+     */
+    public void playSong() {
+        appView.playButtonWasPressed();
+    }
+    
+    /**
+     * 
+     */
+    public void previousSong() {
+        appView.previousButtonWasPressed();
+    }
+    
+    /**
+     * 
+     */
+    public void skipSong() {
+        appView.skipButtonWasPressed();
+    }
+    
+    /**
+     * 
+     */
+    public void stopSong() {
+        appView.stopButtonWasPressed();
+    }
+    
+    class MyJButton extends JButton {
         
         
         public MyJButton(String textToDisplay) {
@@ -45,13 +73,13 @@ public class Controller {
             public void actionPerformed(ActionEvent event) {
                 int action = Integer.parseInt(event.getActionCommand());
                 switch(action){
-                    case 0: appView.playButtonWasPressed();
+                    case 0: playSong();
                             break;
-                    case 1: appView.previousButtonWasPressed();
+                    case 1: previousSong();
                             break;
-                    case 2: appView.skipButtonWasPressed();
+                    case 2: skipSong();
                             break;
-                    case 3: appView.stopButtonWasPressed();
+                    case 3: stopSong();
                             break;
                 }
             }
