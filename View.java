@@ -50,10 +50,10 @@ public class View {
         
         appMenuBar = new JMenuBar();
         appMenu = new JMenu("Menu");
-        playExternalSongItem = new JMenuItem("Play Song Not in Library");
-        exitAppItem = new JMenuItem("Exit Application");
-        addSongItem = new JMenuItem("Add a Song");
-        deleteSongItem = new JMenuItem("Delete a Song");
+        playExternalSongItem = appController.new MyJMenuItem("Play Song Not in Library");
+        exitAppItem = appController.new MyJMenuItem("Exit Application");
+        addSongItem = appController.new MyJMenuItem("Add a Song");
+        deleteSongItem = appController.new MyJMenuItem("Delete a Song");
  
         topMenuPanel = new JPanel(new BorderLayout());
         topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -81,20 +81,31 @@ public class View {
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         appMenuBar.add(appMenu);
-        appMenu.add(playExternalSongItem);
-        appMenu.add(exitAppItem);
+       
         appMenu.add(addSongItem);
         appMenu.add(deleteSongItem);
+        appMenu.add(playExternalSongItem);
+        appMenu.add(exitAppItem);
         
         bottomButtonsPanel.add(previousSongButton);
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
-
+        
+        
+        
         playButton.setActionCommand("0");
         previousSongButton.setActionCommand("1");
         skipSongButton.setActionCommand("2");
         stopButton.setActionCommand("3");
+        
+        addSongItem.setActionCommand("0");
+        deleteSongItem.setActionCommand("1");
+        playExternalSongItem.setActionCommand("2");
+        exitAppItem.setActionCommand("3");
+        
+        
+        
         
         bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
         frame.add(bottomMenuPanel);
@@ -139,4 +150,6 @@ public class View {
     public void producePopupMenu() {
         
     }
+    
+    
 }
