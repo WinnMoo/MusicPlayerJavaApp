@@ -23,6 +23,13 @@ public class View {
     private JPanel bottomMenuPanel;
     private JPanel bottomButtonsPanel;
     
+    private JMenuBar appMenuBar;
+    private JMenu appMenu;
+    private JMenuItem playExternalSongItem;
+    private JMenuItem exitAppItem;
+    private JMenuItem addSongItem;
+    private JMenuItem deleteSongItem;
+    
     private boolean songIsPlaying;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     private MyJButton playButton; 
@@ -41,6 +48,13 @@ public class View {
         frame = new JFrame();
         this.appController = appController;
         
+        appMenuBar = new JMenuBar();
+        appMenu = new JMenu("Menu");
+        playExternalSongItem = new JMenuItem("Play Song Not in Library");
+        exitAppItem = new JMenuItem("Exit Application");
+        addSongItem = new JMenuItem("Add a Song");
+        deleteSongItem = new JMenuItem("Delete a Song");
+ 
         topMenuPanel = new JPanel(new BorderLayout());
         topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         bottomMenuPanel = new JPanel(new BorderLayout());
@@ -66,6 +80,12 @@ public class View {
         frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
+        appMenuBar.add(appMenu);
+        appMenu.add(playExternalSongItem);
+        appMenu.add(exitAppItem);
+        appMenu.add(addSongItem);
+        appMenu.add(deleteSongItem);
+        
         bottomButtonsPanel.add(previousSongButton);
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
@@ -77,8 +97,8 @@ public class View {
         stopButton.setActionCommand("3");
         
         bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
-        
         frame.add(bottomMenuPanel);
+        frame.setJMenuBar(appMenuBar);
         
         frame.setVisible(true);
     }
@@ -89,7 +109,7 @@ public class View {
      * for the song on the top panel.
      */
     public void updatePlayButtonUI() {
-
+           
     }
     
     /**

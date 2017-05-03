@@ -8,8 +8,7 @@ package musicplayerapp;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javazoom.jlgui.basicplayer.BasicPlayer;
-import javazoom.jlgui.basicplayer.BasicPlayerException;
+import javazoom.jlgui.basicplayer.*;
 
 /**
  *
@@ -17,9 +16,10 @@ import javazoom.jlgui.basicplayer.BasicPlayerException;
  */
 public class Model {
     private Database appDB;
-     BasicPlayer bp = new BasicPlayer();
+    private BasicPlayer bp;
     
     public Model() {
+        bp = new BasicPlayer();
         
         try {
             appDB = new Database();
@@ -56,16 +56,16 @@ public class Model {
      * 
      * @throws BasicPlayerException 
      */
-    public void playSong()throws BasicPlayerException{
+    public void playSong() throws BasicPlayerException {
         //The argument for play is a file
-        //bp.play();
+        bp.play();
     }
     
     /**
      * 
      * @throws BasicPlayerException 
      */
-    public void stopSong() throws BasicPlayerException{
+    public void stopSong() throws BasicPlayerException {
         bp.stop();
     }
 
