@@ -34,6 +34,14 @@ public class View {
     private JMenuItem addSongItem;
     private JMenuItem deleteSongItem;
     
+    private JMenu appControlMenu;
+    private JMenuItem playCurrentSong;
+    private JMenuItem nextSong;
+    private JMenuItem previousSong;
+    private JMenuItem hoverCurentSong; // highlight the currently playing song
+    private JMenuItem increaseVolume;
+    private JMenuItem decreaseVolume;
+    
     private boolean songIsPlaying;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     private MyJButton playButton; 
@@ -58,6 +66,14 @@ public class View {
         exitAppItem = appController.new MyJMenuItem("Exit Application");
         addSongItem = appController.new MyJMenuItem("Add a Song");
         deleteSongItem = appController.new MyJMenuItem("Delete a Song");
+        
+        appControlMenu = new JMenu("Controls");
+        playCurrentSong = appController.new MyJMenuItem("Play");
+        nextSong = appController.new MyJMenuItem("Next");
+        previousSong = appController.new MyJMenuItem("Previous");
+        hoverCurentSong = appController.new MyJMenuItem("Go to Current Song");
+        increaseVolume = appController.new MyJMenuItem("Increase Volume");
+        decreaseVolume = appController.new MyJMenuItem("Decrease Volume");
  
         topMenuPanel = new JPanel(new BorderLayout());
         topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -85,11 +101,19 @@ public class View {
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         appMenuBar.add(appMenu);
+        appMenuBar.add(appControlMenu);
        
         appMenu.add(addSongItem);
         appMenu.add(deleteSongItem);
         appMenu.add(playExternalSongItem);
         appMenu.add(exitAppItem);
+        
+        appControlMenu.add(playCurrentSong);
+        appControlMenu.add(nextSong);
+        appControlMenu.add(previousSong);
+        appControlMenu.add(hoverCurentSong);
+        appControlMenu.add(increaseVolume);
+        appControlMenu.add(decreaseVolume);
         
         bottomButtonsPanel.add(previousSongButton);
         bottomButtonsPanel.add(playButton);
