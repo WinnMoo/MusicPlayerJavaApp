@@ -5,11 +5,12 @@
  */
 package musicplayerapp;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jlgui.basicplayer.*;
-
+import com.mpatric.mp3agic.*;
 /**
  *
  * @author stevengarcia
@@ -56,8 +57,9 @@ public class Model {
      * 
      * @throws BasicPlayerException 
      */
-    public void playSong() throws BasicPlayerException {
+    public void playSong(File songToBePlayed) throws BasicPlayerException {
         //The argument for play is a file
+        bp.open(songToBePlayed);
         bp.play();
     }
     

@@ -9,6 +9,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
+import musicplayerapp.Controller.MyJSlider;
 
 /**
  *
@@ -29,6 +30,8 @@ public class View {
     private JMenuItem exitAppItem;
     private JMenuItem addSongItem;
     private JMenuItem deleteSongItem;
+    
+    private MyJSlider volumeSlider;
     
     private boolean songIsPlaying;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
@@ -68,6 +71,8 @@ public class View {
         skipSongButton = appController.new MyJButton("Skip");
         stopButton = appController.new MyJButton("Stop");
         
+        volumeSlider = appController.new MyJSlider(50, 0, 10, 5);
+        
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
     }
@@ -91,6 +96,7 @@ public class View {
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
+        bottomButtonsPanel.add(volumeSlider);
         
         
         
