@@ -108,11 +108,11 @@ public class Controller {
     class MyJMenuItem extends JMenuItem{
         public MyJMenuItem(String textToDisplay){
             this.setText(textToDisplay);
-            menuListener ml = new menuListener();
+            MenuListener ml = new MenuListener();
             ml.createComponents();
             
         }
-        class menuListener implements ActionListener {
+        class MenuListener implements ActionListener {
             
             public void actionPerformed(ActionEvent event) {
                 
@@ -128,7 +128,7 @@ public class Controller {
                         break;
                     case 2:
                         System.out.println("Playing song not in library");
-                        myDialog md = new myDialog();
+                        MyDialog md = new MyDialog();
                         md.setVisible(true);
                         if (md.ok) {
                             System.out.println("Filename is " + md.filename);
@@ -145,7 +145,7 @@ public class Controller {
             }
 
             private void createComponents() {
-                ActionListener listener = new menuListener();
+                ActionListener listener = new MenuListener();
                 addActionListener(listener);
             }
         }
@@ -155,13 +155,13 @@ public class Controller {
 
     }
     
-    public class myDialog extends JDialog {
+    public class MyDialog extends JDialog {
 
     String filename;
     boolean ok = false;
     JFileChooser chooser;
 
-    public myDialog() {
+    public MyDialog() {
         setSize(300, 300);
         chooser = new JFileChooser();
         chooser.addActionListener(new ActionListener() {
@@ -186,5 +186,5 @@ public class Controller {
             setVisible(false);
         }
     }
-}
+    }
 }

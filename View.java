@@ -18,6 +18,10 @@ public class View {
     private JFrame frame;
     private Controller appController;
     
+    private String[] columnNames = {"Title", "Artist", "Album", "Year"};
+    private JTable appTable;
+    private Object[][] data;
+    
     private JPanel topMenuPanel;
     private JPanel topButtonsPanel;
     private JPanel bottomMenuPanel;
