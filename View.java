@@ -33,7 +33,7 @@ public class View {
     
     private MyJSlider volumeSlider;
     
-    private boolean songIsPlaying;
+    private boolean songIsPlaying = false;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     private MyJButton playButton; 
     private MyJButton previousSongButton;
@@ -71,7 +71,7 @@ public class View {
         skipSongButton = appController.new MyJButton("Skip");
         stopButton = appController.new MyJButton("Stop");
         
-        volumeSlider = appController.new MyJSlider(50, 0, 10, 5);
+        volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
         
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
@@ -120,13 +120,19 @@ public class View {
         frame.setVisible(true);
     }
     
+    
+    //updating text doesn't work
     /**
      * Updates play button UI as to show the image for pause
      * for the button. Shows the corresponding time
      * for the song on the top panel.
      */
     public void updatePlayButtonUI() {
-           
+        if(songIsPlaying){
+            playButton.setText("Pause");
+        }else{
+            playButton.setText("Play");
+        }
     }
     
     /**

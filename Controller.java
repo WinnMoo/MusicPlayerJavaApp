@@ -29,7 +29,7 @@ public class Controller {
 
     private View appView;
     private Model appModel;
-
+    
     /**
      * Construct the instance variables.
      */
@@ -41,15 +41,18 @@ public class Controller {
     /**
      * Start the application and display the GUI.
      */
-    public void startApp() {
+    public void startApp() throws BasicPlayerException {
         appView.displayUI();
+        appModel.loadSong(appModel.fileToPlay);
     }
 
     /**
      *
      */
     public void playSong() throws BasicPlayerException {
+        appView.displayUI();
         appView.updatePlayButtonUI();
+        appModel.playSong(appModel.fileToPlay);
     }
 
     /**
@@ -69,8 +72,9 @@ public class Controller {
     /**
      *
      */
-    public void stopSong() {
+    public void stopSong() throws BasicPlayerException {
         appView.updateStopButtonUI();
+        appModel.stopSong();
     }
 
     class MyJButton extends JButton {
@@ -107,7 +111,13 @@ public class Controller {
                         break;
                     case 3:
                         System.out.println("Stop button was pressed");
+                {
+                    try {
                         stopSong();
+                    } catch (BasicPlayerException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                         break;
                 }
             }
@@ -170,14 +180,11 @@ public class Controller {
     class MyJSlider extends JSlider {
 
         public MyJSlider(int orientation, int min, int max, int value) {
-
-            this.setMajorTickSpacing(1);
-            this.setPaintTicks(true);
-            StateListener SL = new StateListener();
+            SliderListener SL = new SliderListener();
 
         }
 
-        class StateListener implements ChangeListener {
+        class SliderListener implements ChangeListener {
 
             public void stateChanged(ChangeEvent e) {
                 JSlider source = (JSlider) e.getSource();

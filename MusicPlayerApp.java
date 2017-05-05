@@ -31,16 +31,7 @@ public class MusicPlayerApp {
         System.out.println("Has ID3v1 tag?: " + (mp3file.hasId3v1Tag() ? "YES" : "NO"));
         System.out.println("Has ID3v2 tag?: " + (mp3file.hasId3v2Tag() ? "YES" : "NO"));
         System.out.println("Has custom tag?: " + (mp3file.hasCustomTag() ? "YES" : "NO"));
-        BasicPlayer bp = new BasicPlayer();
-        BasicController control = (BasicController) bp;
-        try {
-            File fileToPlay = new File("fur-elise.mp3");
-
-            control.open(fileToPlay);
-            control.play();
-        } catch (BasicPlayerException e) {
-            e.printStackTrace();
-        }
+    
 
         Controller appController = new Controller();
         appController.startApp();
