@@ -5,7 +5,13 @@
  */
 package musicplayerapp;
 
+<<<<<<< HEAD
 import java.io.File;
+=======
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.Mp3File;
+>>>>>>> origin/master
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +25,9 @@ import com.mpatric.mp3agic.*;
 public class Model {
 
     private Database appDB;
+    private Controller appController;
     private BasicPlayer bp;
+<<<<<<< HEAD
     private double volumeLevel = .5;
 
     File fileToPlay = new File("fur-elise.mp3");
@@ -27,6 +35,14 @@ public class Model {
     private boolean isSongPlaying = true;
 
     public Model() {
+=======
+    private Mp3File mp3file;
+    private ID3v1 id3v1Tag;
+    private ID3v2 id3v2Tag;
+    
+    public Model(Controller appController) {
+        this.appController = appController;
+>>>>>>> origin/master
         bp = new BasicPlayer();
 
         try {

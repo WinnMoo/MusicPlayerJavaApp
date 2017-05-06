@@ -35,7 +35,7 @@ public class Controller {
      */
     public Controller() {
         appView = new View(this);
-        appModel = new Model(); // db is initalized in Model's class constructor
+        appModel = new Model(this); // db is initalized in Model's class constructor
     }
 
     /**
@@ -133,13 +133,18 @@ public class Controller {
 
         public MyJMenuItem(String textToDisplay) {
             this.setText(textToDisplay);
-            menuListener ml = new menuListener();
+            MenuListener ml = new MenuListener();
             ml.createComponents();
 
         }
+<<<<<<< HEAD
 
         class menuListener implements ActionListener {
 
+=======
+        class MenuListener implements ActionListener {
+            
+>>>>>>> origin/master
             public void actionPerformed(ActionEvent event) {
 
                 int action = Integer.parseInt(event.getActionCommand());
@@ -154,7 +159,7 @@ public class Controller {
                         break;
                     case 2:
                         System.out.println("Playing song not in library");
-                        myDialog md = new myDialog();
+                        MyDialog md = new MyDialog();
                         md.setVisible(true);
                         if (md.ok) {
                             System.out.println("Filename is " + md.filename);
@@ -171,7 +176,7 @@ public class Controller {
             }
 
             private void createComponents() {
-                ActionListener listener = new menuListener();
+                ActionListener listener = new MenuListener();
                 addActionListener(listener);
             }
         }
@@ -179,8 +184,14 @@ public class Controller {
 
     class MyJSlider extends JSlider {
 
+<<<<<<< HEAD
         public MyJSlider(int orientation, int min, int max, int value) {
             SliderListener SL = new SliderListener();
+=======
+    }
+    
+    public class MyDialog extends JDialog {
+>>>>>>> origin/master
 
         }
 
@@ -190,6 +201,14 @@ public class Controller {
                 JSlider source = (JSlider) e.getSource();
             }
 
+<<<<<<< HEAD
+=======
+    public MyDialog() {
+        setSize(300, 300);
+        chooser = new JFileChooser();
+        chooser.addActionListener(new ActionListener() {
+            
+>>>>>>> origin/master
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -244,4 +263,8 @@ public class Controller {
             }
         }
     }
+<<<<<<< HEAD
+=======
+    }
+>>>>>>> origin/master
 }
