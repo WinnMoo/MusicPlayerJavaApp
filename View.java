@@ -7,7 +7,6 @@ package musicplayerapp;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
 import musicplayerapp.Controller.MyJSlider;
@@ -20,14 +19,10 @@ public class View {
     private JFrame frame;
     private Controller appController;
     
-    private String[] columnNames = {"Title", "Artist", "Album", "Year"};
-    private JTable appTable;
-    private String[][] data = { {"Hello", "hi", "bye", "rarh"}
-                               };
-    
+    private JPanel topMenuPanel;
+    private JPanel topButtonsPanel;
+    private JPanel bottomMenuPanel;
     private JPanel bottomButtonsPanel;
-    private JPanel centerPanel;
-    private JPanel panel;
     
     private JMenuBar appMenuBar;
     private JMenu appMenu;
@@ -36,21 +31,9 @@ public class View {
     private JMenuItem addSongItem;
     private JMenuItem deleteSongItem;
     
-<<<<<<< HEAD
     private MyJSlider volumeSlider;
     
     private boolean songIsPlaying = false;
-=======
-    private JMenu appControlMenu;
-    private JMenuItem playCurrentSong;
-    private JMenuItem nextSong;
-    private JMenuItem previousSong;
-    private JMenuItem hoverCurentSong; // highlight the currently playing song
-    private JMenuItem increaseVolume;
-    private JMenuItem decreaseVolume;
-    
-    private boolean songIsPlaying;
->>>>>>> origin/master
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     private MyJButton playButton; 
     private MyJButton previousSongButton;
@@ -74,18 +57,11 @@ public class View {
         exitAppItem = appController.new MyJMenuItem("Exit Application");
         addSongItem = appController.new MyJMenuItem("Add a Song");
         deleteSongItem = appController.new MyJMenuItem("Delete a Song");
-        
-        appControlMenu = new JMenu("Controls");
-        playCurrentSong = appController.new MyJMenuItem("Play");
-        nextSong = appController.new MyJMenuItem("Next");
-        previousSong = appController.new MyJMenuItem("Previous");
-        hoverCurentSong = appController.new MyJMenuItem("Go to Current Song");
-        increaseVolume = appController.new MyJMenuItem("Increase Volume");
-        decreaseVolume = appController.new MyJMenuItem("Decrease Volume");
  
+        topMenuPanel = new JPanel(new BorderLayout());
+        topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bottomMenuPanel = new JPanel(new BorderLayout());
         bottomButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        centerPanel = new JPanel(new BorderLayout());
-        panel = new JPanel(new BorderLayout());
         
         songIsPlaying = false;
         
@@ -110,32 +86,20 @@ public class View {
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         
         appMenuBar.add(appMenu);
-        appMenuBar.add(appControlMenu);
        
         appMenu.add(addSongItem);
         appMenu.add(deleteSongItem);
         appMenu.add(playExternalSongItem);
         appMenu.add(exitAppItem);
         
-        appControlMenu.add(playCurrentSong);
-        appControlMenu.add(nextSong);
-        appControlMenu.add(previousSong);
-        appControlMenu.add(hoverCurentSong);
-        appControlMenu.add(increaseVolume);
-        appControlMenu.add(decreaseVolume);
-        
         bottomButtonsPanel.add(previousSongButton);
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
-<<<<<<< HEAD
         bottomButtonsPanel.add(volumeSlider);
         
         
         
-=======
-         
->>>>>>> origin/master
         playButton.setActionCommand("0");
         previousSongButton.setActionCommand("1");
         skipSongButton.setActionCommand("2");
@@ -146,16 +110,13 @@ public class View {
         playExternalSongItem.setActionCommand("2");
         exitAppItem.setActionCommand("3");
         
-        appTable = new JTable(data, columnNames);
-        JScrollPane scrollPane = new JScrollPane(appTable);
-        appTable.setFillsViewportHeight(true);
-        
-        panel.add(appMenuBar, BorderLayout.NORTH);
-        panel.add(bottomButtonsPanel, BorderLayout.SOUTH);
-        panel.add(scrollPane, BorderLayout.CENTER);
         
         
-        frame.add(panel); 
+        
+        bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
+        frame.add(bottomMenuPanel);
+        frame.setJMenuBar(appMenuBar);
+        
         frame.setVisible(true);
     }
     
@@ -201,5 +162,6 @@ public class View {
     public void producePopupMenu() {
         
     }
-     
+    
+    
 }

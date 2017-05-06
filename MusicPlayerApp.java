@@ -6,13 +6,8 @@
 package musicplayerapp;
 
 import com.mpatric.mp3agic.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import javazoom.*;
 import javazoom.jlgui.basicplayer.*;
-import javazoom.spi.*;
-
 /**
  *
  * @author stevengarcia
