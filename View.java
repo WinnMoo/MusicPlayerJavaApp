@@ -7,6 +7,7 @@ package musicplayerapp;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
 
@@ -20,12 +21,12 @@ public class View {
     
     private String[] columnNames = {"Title", "Artist", "Album", "Year"};
     private JTable appTable;
-    private Object[][] data;
+    private String[][] data = { {"Hello", "hi", "bye", "rarh"}
+                               };
     
-    private JPanel topMenuPanel;
-    private JPanel topButtonsPanel;
-    private JPanel bottomMenuPanel;
     private JPanel bottomButtonsPanel;
+    private JPanel centerPanel;
+    private JPanel panel;
     
     private JMenuBar appMenuBar;
     private JMenu appMenu;
@@ -75,10 +76,9 @@ public class View {
         increaseVolume = appController.new MyJMenuItem("Increase Volume");
         decreaseVolume = appController.new MyJMenuItem("Decrease Volume");
  
-        topMenuPanel = new JPanel(new BorderLayout());
-        topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        bottomMenuPanel = new JPanel(new BorderLayout());
         bottomButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        centerPanel = new JPanel(new BorderLayout());
+        panel = new JPanel(new BorderLayout());
         
         songIsPlaying = false;
         
@@ -119,9 +119,7 @@ public class View {
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
-        
-        
-        
+         
         playButton.setActionCommand("0");
         previousSongButton.setActionCommand("1");
         skipSongButton.setActionCommand("2");
@@ -132,13 +130,16 @@ public class View {
         playExternalSongItem.setActionCommand("2");
         exitAppItem.setActionCommand("3");
         
+        appTable = new JTable(data, columnNames);
+        JScrollPane scrollPane = new JScrollPane(appTable);
+        appTable.setFillsViewportHeight(true);
+        
+        panel.add(appMenuBar, BorderLayout.NORTH);
+        panel.add(bottomButtonsPanel, BorderLayout.SOUTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
         
         
-        
-        bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
-        frame.add(bottomMenuPanel);
-        frame.setJMenuBar(appMenuBar);
-        
+        frame.add(panel); 
         frame.setVisible(true);
     }
     
@@ -178,6 +179,5 @@ public class View {
     public void producePopupMenu() {
         
     }
-    
-    
+     
 }

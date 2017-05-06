@@ -5,6 +5,9 @@
  */
 package musicplayerapp;
 
+import com.mpatric.mp3agic.ID3v1;
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.Mp3File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,9 +19,14 @@ import javazoom.jlgui.basicplayer.*;
  */
 public class Model {
     private Database appDB;
+    private Controller appController;
     private BasicPlayer bp;
+    private Mp3File mp3file;
+    private ID3v1 id3v1Tag;
+    private ID3v2 id3v2Tag;
     
-    public Model() {
+    public Model(Controller appController) {
+        this.appController = appController;
         bp = new BasicPlayer();
         
         try {
@@ -49,7 +57,7 @@ public class Model {
      * 
      */
     public void addSong() {
-
+        
     }
 
     /**

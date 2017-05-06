@@ -46,14 +46,21 @@ public class Database {
      * This method is to run only once to create the tables for the database.
      */
     public void createTables() {
-        
+        /*
+        CREATE TABLE Playlist (
+            Title VARCHAR(30),
+            Artist VARCHAR(30),
+            ALBUM VARCHAR(30),
+            Year CHAR(4),
+        )
+        */
     }
     
     /**
      * 
      */
     public void addSong(String songName) {
-        
+
     }
     
     /**

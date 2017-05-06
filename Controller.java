@@ -27,7 +27,7 @@ public class Controller {
      */
     public Controller() {
         appView = new View(this);
-        appModel = new Model(); // db is initalized in Model's class constructor
+        appModel = new Model(this); // db is initalized in Model's class constructor
     }
 
     /**
