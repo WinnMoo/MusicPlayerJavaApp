@@ -9,13 +9,14 @@ import java.sql.Statement;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
  * ***************************************************
  * This code only initializes a Database instance and * connects it to the
  * server. No tables are defined * or any other operations provided. *
-****************************************************
+ * ***************************************************
  */
 public class Database {
 
@@ -46,10 +47,19 @@ public class Database {
      * This method is to run only once to create the tables for the database.
      */
     public void createTables() throws SQLException {
-        stat.execute("CREATE TABLE songInfo(TITLE VARCHAR(30), ARTIST VARCHAR(30), ALBUM VARCHAR(30), YEAR VARCHAR(4), GENRE VARCHAR(3)");
+        String createString =
+        "CREATE TABLE songInfo("
+                + "TITLE VARCHAR(30),"
+                + "ARTIST VARCHAR(30),"
+                + "ALBUM VARCHAR(30),"
+                + "SONGYEAR VARCHAR(4),"
+                + "GENRE VARCHAR(3)"
+                + ")";
+        PreparedStatement pstmt = conn.prepareStatement(createString);
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
-    
     /**
      *
      * @param title
@@ -59,8 +69,16 @@ public class Database {
      * @param genre
      * @throws java.sql.SQLException
      */
-    public void addSong(String title, String artist, String album, String year, int genre) throws SQLException{
-        stat.execute("INSERT INTO songInfo VALUES (title, artist, album, year, genre)");
+    public void addSong(String title, String artist, String album, String year, int genre) throws SQLException {
+        String SQL = "INSERT INTO songInfo VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement pstmt = conn.prepareStatement(SQL);
+        pstmt.setString(1, title);
+        pstmt.setString(2, artist);
+        pstmt.setString(3, album);
+        pstmt.setString(4, year);
+        pstmt.setInt(5, genre);
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     /**
@@ -68,7 +86,7 @@ public class Database {
      * @param songName
      * @throws java.sql.SQLException
      */
-    public void removeSong(String songName) throws SQLException{
+    public void removeSong(String songName) throws SQLException {
 
     }
 }

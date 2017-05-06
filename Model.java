@@ -52,7 +52,7 @@ public class Model {
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        appDB.createTables();
         populateDatabase();
     }
 
