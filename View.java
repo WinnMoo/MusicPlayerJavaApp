@@ -36,11 +36,9 @@ public class View {
     private JMenuItem addSongItem;
     private JMenuItem deleteSongItem;
     
-<<<<<<< HEAD
-    private MyJSlider volumeSlider;
-    
+    private MyJSlider volumeSlider;    
     private boolean songIsPlaying = false;
-=======
+
     private JMenu appControlMenu;
     private JMenuItem playCurrentSong;
     private JMenuItem nextSong;
@@ -49,8 +47,7 @@ public class View {
     private JMenuItem increaseVolume;
     private JMenuItem decreaseVolume;
     
-    private boolean songIsPlaying;
->>>>>>> origin/master
+    private boolean isSongPlaying;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     private MyJButton playButton; 
     private MyJButton previousSongButton;
@@ -128,14 +125,9 @@ public class View {
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
-<<<<<<< HEAD
         bottomButtonsPanel.add(volumeSlider);
         
-        
-        
-=======
-         
->>>>>>> origin/master
+
         playButton.setActionCommand("0");
         previousSongButton.setActionCommand("1");
         skipSongButton.setActionCommand("2");

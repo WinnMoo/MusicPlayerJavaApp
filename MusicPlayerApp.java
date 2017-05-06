@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import javazoom.*;
 import javazoom.jlgui.basicplayer.*;
-import javazoom.spi.*;
 
 /**
  *

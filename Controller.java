@@ -135,16 +135,10 @@ public class Controller {
             this.setText(textToDisplay);
             MenuListener ml = new MenuListener();
             ml.createComponents();
-
         }
-<<<<<<< HEAD
 
-        class menuListener implements ActionListener {
-
-=======
         class MenuListener implements ActionListener {
             
->>>>>>> origin/master
             public void actionPerformed(ActionEvent event) {
 
                 int action = Integer.parseInt(event.getActionCommand());
@@ -184,51 +178,35 @@ public class Controller {
 
     class MyJSlider extends JSlider {
 
-<<<<<<< HEAD
         public MyJSlider(int orientation, int min, int max, int value) {
             SliderListener SL = new SliderListener();
-=======
-    }
-    
-    public class MyDialog extends JDialog {
->>>>>>> origin/master
-
         }
-
+    
         class SliderListener implements ChangeListener {
 
             public void stateChanged(ChangeEvent e) {
                 JSlider source = (JSlider) e.getSource();
             }
 
-<<<<<<< HEAD
-=======
-    public MyDialog() {
-        setSize(300, 300);
-        chooser = new JFileChooser();
-        chooser.addActionListener(new ActionListener() {
-            
->>>>>>> origin/master
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         }
-
     }
-
+    
     public class MyFrame extends JFrame {
 
     }
-
-    public class myDialog extends JDialog {
+ 
+    public class MyDialog extends JDialog {
 
         File songToBePlayed;
         String filename;
         boolean ok = false;
         JFileChooser chooser;
 
-        public myDialog() {
+        public MyDialog() {
             setSize(500, 500);
             chooser = new JFileChooser();
             chooser.addActionListener(new ActionListener() {
@@ -248,7 +226,7 @@ public class Controller {
             setModal(true);
         }
 
-        void getFile(ActionEvent e) throws BasicPlayerException {
+        public void getFile(ActionEvent e) throws BasicPlayerException {
             if (e.getActionCommand().equalsIgnoreCase("ApprovableSelection")) {
 
                 filename = chooser.getSelectedFile().getAbsolutePath();
@@ -263,8 +241,4 @@ public class Controller {
             }
         }
     }
-<<<<<<< HEAD
-=======
-    }
->>>>>>> origin/master
 }
