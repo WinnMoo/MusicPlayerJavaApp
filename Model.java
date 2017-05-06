@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javazoom.jlgui.basicplayer.*;
 import com.mpatric.mp3agic.*;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,11 +24,23 @@ public class Model {
     private BasicPlayer bp;
     private double volumeLevel = .5;
 
+    //temp variable to make sure that mp3 player works
     File fileToPlay = new File("fur-elise.mp3");
+    //variables for the song
+    Mp3File song1;
+    Mp3File song2;
+    ArrayList<Mp3File> songs = new ArrayList<Mp3File>();
     private boolean startSong = false;
     private boolean isSongPlaying = true;
 
-    public Model() {
+    public Model() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
+        this.song1 = new Mp3File("fur-elise.mp3");
+        this.song2 = new Mp3File("mpthreetest.mp3");
+
+        songs.add(song1);
+        songs.add(song2);
+
+
         bp = new BasicPlayer();
 
         try {
@@ -37,6 +51,30 @@ public class Model {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        populateDatabase();
+    }
+
+    
+    /**
+     * Function to populate the database. Only called once in the beginning. 
+     * Any song that needs to be added will use the addSong function
+     * 
+     * @throws SQLException 
+     */
+    public void populateDatabase() throws SQLException {
+        for (int i = 0; i < songs.size(); i++) {
+            if (songs.get(i).hasId3v1Tag()) {
+                ID3v1 id3v1Tag = songs.get(i).getId3v1Tag();
+
+                String title = id3v1Tag.getTitle();
+                String artist = id3v1Tag.getArtist();
+                String album = id3v1Tag.getAlbum();
+                String year = id3v1Tag.getYear();
+                int genre = id3v1Tag.getGenre();
+                appDB.addSong(title, artist, album, year, genre);
+            }
         }
     }
 
@@ -57,8 +95,15 @@ public class Model {
     /**
      *
      */
-    public void addSong() {
+    public void addSong(Mp3File songToBeAdded) throws SQLException {
+        ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();
 
+        String title = id3v1Tag.getTitle();
+        String artist = id3v1Tag.getArtist();
+        String album = id3v1Tag.getAlbum();
+        String year = id3v1Tag.getYear();
+        int genre = id3v1Tag.getGenre();
+        appDB.addSong(title, artist, album, year, genre);
     }
 
     /**

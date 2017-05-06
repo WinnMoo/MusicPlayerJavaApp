@@ -5,9 +5,13 @@
  */
 package musicplayerapp;
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +37,7 @@ public class Controller {
     /**
      * Construct the instance variables.
      */
-    public Controller() {
+    public Controller() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
         appView = new View(this);
         appModel = new Model(); // db is initalized in Model's class constructor
     }
@@ -176,6 +180,8 @@ public class Controller {
         }
     }
 
+    
+    //not working yet
     class MyJSlider extends JSlider {
 
         public MyJSlider(int orientation, int min, int max, int value) {

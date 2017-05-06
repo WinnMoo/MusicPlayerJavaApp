@@ -11,23 +11,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-/*****************************************************
-* This code only initializes a Database instance and *
-* connects it to the server. No tables are defined   *
-* or any other operations provided.                  *
-*****************************************************/
-
+/**
+ * ***************************************************
+ * This code only initializes a Database instance and * connects it to the
+ * server. No tables are defined * or any other operations provided. *
+****************************************************
+ */
 public class Database {
+
     Connection conn; //once a connection is established it stays
-                     //as long as the code that created this
-			     //instance does not exit
+    //as long as the code that created this
+    //instance does not exit
 
     Statement stat;  //stat can be reused in every operation
     String query;
 
-    public Database()throws IOException, ClassNotFoundException, 
-                            SQLException, Exception
-    {
+    public Database() throws IOException, ClassNotFoundException,
+            SQLException, Exception {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException cnfe) {
@@ -37,29 +37,38 @@ public class Database {
         try {
             conn = DriverManager.getConnection("jdbc:derby://localhost/MP3Player;create=true;user=APP;pass=APP");
             stat = conn.createStatement();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-        }      
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
-    
+
     /**
      * This method is to run only once to create the tables for the database.
      */
-    public void createTables() {
-        
+    public void createTables() throws SQLException {
+        stat.execute("CREATE TABLE songInfo(TITLE VARCHAR(30), ARTIST VARCHAR(30), ALBUM VARCHAR(30), YEAR VARCHAR(4), GENRE VARCHAR(3)");
     }
+
     
     /**
-     * 
+     *
+     * @param title
+     * @param artist
+     * @param album
+     * @param year
+     * @param genre
+     * @throws java.sql.SQLException
      */
-    public void addSong(String songName) {
-        
+    public void addSong(String title, String artist, String album, String year, int genre) throws SQLException{
+        stat.execute("INSERT INTO songInfo VALUES (title, artist, album, year, genre)");
     }
-    
+
     /**
-     * 
+     *
+     * @param songName
+     * @throws java.sql.SQLException
      */
-    public void removeSong(String songName) {
-        
+    public void removeSong(String songName) throws SQLException{
+
     }
 }
