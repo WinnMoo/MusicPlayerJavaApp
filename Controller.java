@@ -61,7 +61,8 @@ public class Controller {
      */
     public void playSong() throws BasicPlayerException {
         appView.updatePlayButtonUI();
-        appModel.playSong(appModel.songFileList.get(appModel.playSongID));
+        appModel.loadSong(appModel.songFileList.get(appModel.playSongID));
+        appModel.playSong();
     }
 
     /**
@@ -278,7 +279,8 @@ public class Controller {
                 ok = true;
                 songToBePlayed = chooser.getSelectedFile();
 
-                appModel.playSong(songToBePlayed);
+                appModel.loadSong(songToBePlayed);
+                appModel.playSong();
 
             } else {
                 ok = false;

@@ -126,7 +126,7 @@ public class Model {
         bp.open(songToBePlayed);
     }
 
-    public void playSong(File songToBePlayed) throws BasicPlayerException {
+    public void playSong() throws BasicPlayerException {
         if (startSong == false) {
             startSong = true;
             bp.play();
@@ -155,19 +155,18 @@ public class Model {
      *
      */
     public void skipSong() throws BasicPlayerException {
-        //Same process for previous
         if(playSongID == (songFileList.size() - 1)){
             playSongID = 0;
         } else{
             playSongID++;
         }
         
-        System.out.println(playSongID);
         bp.stop();
         startSong = false;
         
         System.out.println(songFileList.get(playSongID));
-        playSong(songFileList.get(playSongID));
+        bp.open(songFileList.get(playSongID));
+        playSong();
         startSong = true;
     }
 
@@ -184,15 +183,9 @@ public class Model {
         startSong = false;
         
         System.out.println(songFileList.get(playSongID));
-        playSong(songFileList.get(playSongID));
+        bp.open(songFileList.get(playSongID));
+        playSong();
         startSong = true;
-        //No function to play previous song
-        //Must keep track of current song and the previous song
-
-        //1. Stop current song bp.stop()
-        //2. Find previous song file 
-        //3. Open song file bp.open(File file)
-        //3. Play previous song file bp.play(previousSongFile)
     }
 
     //volume adjustment function to be added here
