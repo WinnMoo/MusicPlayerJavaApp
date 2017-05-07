@@ -26,7 +26,7 @@ public class Model {
     private BasicPlayer bp;
     private double volumeLevel = .5;
 
-    File fileToPlay = new File("fur-elise.mp3");
+    private File fileToPlay = new File("fur-elise.mp3");
     private boolean startSong = false;
     private boolean isSongPlaying = true;
     
@@ -48,7 +48,24 @@ public class Model {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * 
+     */
+    public void setFileToPlay(String fileToPlay) {
+        this.fileToPlay = new File(fileToPlay);
+    }
+    
+    /**
+     * 
+     */
+    public File getFileToPlay() {
+        if (fileToPlay != null) {
+            return fileToPlay;
+        } 
+        return null;
+    }
+    
     /**
      * Remove song from database and from view based on user right clicking a
      * song on the GUI and selecting 'Delete Song.'
@@ -62,14 +79,14 @@ public class Model {
         stat.execute(query);
          */
     }
-
+    
     /**
      *
      */
     public void addSong() {
 
     }
-
+    
     /**
      *
      * @throws BasicPlayerException

@@ -43,7 +43,11 @@ public class Controller {
      */
     public void startApp() throws BasicPlayerException {
         appView.displayUI();
-        appModel.loadSong(appModel.fileToPlay);
+        try {
+            appModel.loadSong(appModel.getFileToPlay());
+        } catch (Exception ex) {
+            System.out.println("No file to play");
+        }
     }
 
     /**
@@ -52,7 +56,11 @@ public class Controller {
     public void playSong() throws BasicPlayerException {
         appView.displayUI();
         appView.updatePlayButtonUI();
-        appModel.playSong(appModel.fileToPlay);
+        try {
+            appModel.playSong(appModel.getFileToPlay());
+        } catch (Exception ex) {
+            System.out.println("No file to play");
+        }
     }
 
     /**
