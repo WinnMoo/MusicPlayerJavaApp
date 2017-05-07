@@ -9,6 +9,9 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
 import javax.swing.JSlider;
+import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
 import javazoom.jlgui.basicplayer.BasicPlayerException;
 
@@ -30,16 +34,17 @@ import javazoom.jlgui.basicplayer.BasicPlayerException;
  * @author stevengarcia
  */
 public class Controller {
-
-    private View appView;
-    private Model appModel;
     
+    protected Model appModel;
+    private View appView;
+    
+
     /**
      * Construct the instance variables.
      */
     public Controller() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
-        appView = new View(this);
         appModel = new Model(); // db is initalized in Model's class constructor
+        appView = new View(this);
     }
 
     /**
@@ -114,13 +119,13 @@ public class Controller {
                         break;
                     case 3:
                         System.out.println("Stop button was pressed");
-                {
-                    try {
-                        stopSong();
-                    } catch (BasicPlayerException ex) {
-                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                         {
+                            try {
+                                stopSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         break;
                 }
             }
@@ -180,7 +185,6 @@ public class Controller {
         }
     }
 
-    
     //not working yet
     class MyJSlider extends JSlider {
 
@@ -202,6 +206,8 @@ public class Controller {
         }
 
     }
+
+
 
     public class MyFrame extends JFrame {
 

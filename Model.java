@@ -40,7 +40,6 @@ public class Model {
         songs.add(song1);
         songs.add(song2);
 
-
         bp = new BasicPlayer();
 
         try {
@@ -56,12 +55,11 @@ public class Model {
         populateDatabase();
     }
 
-    
     /**
-     * Function to populate the database. Only called once in the beginning. 
-     * Any song that needs to be added will use the addSong function
-     * 
-     * @throws SQLException 
+     * Function to populate the database. Only called once in the beginning. Any
+     * song that needs to be added will use the addSong function
+     *
+     * @throws SQLException
      */
     public void populateDatabase() throws SQLException {
         for (int i = 0; i < songs.size(); i++) {

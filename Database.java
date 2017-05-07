@@ -56,7 +56,7 @@ public class Database {
                 + "GENRE VARCHAR(3)"
                 + ")";
         PreparedStatement pstmt = conn.prepareStatement(createString);
-        pstmt.executeUpdate();
+        //pstmt.executeUpdate();
         pstmt.close();
     }
 
