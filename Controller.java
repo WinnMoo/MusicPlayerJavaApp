@@ -9,6 +9,8 @@ import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,10 +36,9 @@ import javazoom.jlgui.basicplayer.BasicPlayerException;
  * @author stevengarcia
  */
 public class Controller {
-    
+
     protected Model appModel;
     private View appView;
-    
 
     /**
      * Construct the instance variables.
@@ -52,7 +53,7 @@ public class Controller {
      */
     public void startApp() throws BasicPlayerException {
         appView.displayUI();
-        appModel.loadSong(appModel.fileToPlay);
+        appModel.loadSong(appModel.songFileList.get(0));
     }
 
     /**
@@ -60,21 +61,24 @@ public class Controller {
      */
     public void playSong() throws BasicPlayerException {
         appView.updatePlayButtonUI();
-        appModel.playSong(appModel.fileToPlay);
+        appModel.playSong(appModel.songFileList.get(appModel.playSongID));
     }
 
     /**
      *
      */
-    public void previousSong() {
+    public void previousSong() throws BasicPlayerException {
         appView.updatePreviousButtonUI();
+        appModel.previousSong();
+
     }
 
     /**
      *
      */
-    public void skipSong() {
+    public void skipSong() throws BasicPlayerException {
         appView.updateSkipButtonUI();
+        appModel.skipSong();
     }
 
     /**
@@ -83,6 +87,23 @@ public class Controller {
     public void stopSong() throws BasicPlayerException {
         appView.updateStopButtonUI();
         appModel.stopSong();
+    }
+
+    class keyboardListener implements KeyListener {
+
+        public void keyPressed(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            System.out.println(e.getKeyCode());
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println(e.getKeyCode());
+        }
     }
 
     class MyJButton extends JButton {
@@ -111,11 +132,23 @@ public class Controller {
                         break;
                     case 1:
                         System.out.println("Previous button was pressed");
-                        previousSong();
+                         {
+                            try {
+                                previousSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         break;
                     case 2:
                         System.out.println("Skip button was pressed");
-                        skipSong();
+                         {
+                            try {
+                                skipSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         break;
                     case 3:
                         System.out.println("Stop button was pressed");
@@ -206,8 +239,6 @@ public class Controller {
         }
 
     }
-
-
 
     public class MyFrame extends JFrame {
 

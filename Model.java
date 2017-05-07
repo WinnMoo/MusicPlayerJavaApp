@@ -24,21 +24,35 @@ public class Model {
     private BasicPlayer bp;
     private double volumeLevel = .5;
 
-    //temp variable to make sure that mp3 player works
-    File fileToPlay = new File("fur-elise.mp3");
+    int playSongID;
+    
     //variables for the song
     Mp3File song1;
     Mp3File song2;
     ArrayList<Mp3File> songs = new ArrayList<Mp3File>();
+    
+    //
+    File songFile1;
+    File songFile2;
+    ArrayList<File> songFileList = new ArrayList<File>();
     private boolean startSong = false;
     private boolean isSongPlaying = true;
 
     public Model() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
+        
+        playSongID = 0;
+        
         this.song1 = new Mp3File("fur-elise.mp3");
         this.song2 = new Mp3File("mpthreetest.mp3");
-
+        
         songs.add(song1);
         songs.add(song2);
+        
+        this.songFile1 = new File("fur-elise.mp3");
+        this.songFile2 = new File("mpthreetest.mp3");
+        
+        songFileList.add(songFile1);
+        songFileList.add(songFile2);
 
         bp = new BasicPlayer();
 
@@ -117,7 +131,6 @@ public class Model {
             startSong = true;
             bp.play();
         } else {
-
             if (!isSongPlaying) {
                 bp.resume();
                 isSongPlaying = true;
@@ -141,14 +154,38 @@ public class Model {
     /**
      *
      */
-    public void skipSong() {
+    public void skipSong() throws BasicPlayerException {
         //Same process for previous
+        if(playSongID == (songFileList.size() - 1)){
+            playSongID = 0;
+        } else{
+            playSongID++;
+        }
+        
+        System.out.println(playSongID);
+        bp.stop();
+        startSong = false;
+        
+        System.out.println(songFileList.get(playSongID));
+        playSong(songFileList.get(playSongID));
+        startSong = true;
     }
 
     /**
      *
      */
-    public void previousSong() {
+    public void previousSong() throws BasicPlayerException {
+        if(playSongID > 0){
+        playSongID--;
+        }else if(playSongID == 0){
+            playSongID = songFileList.size() - 1;
+        }
+        bp.stop();
+        startSong = false;
+        
+        System.out.println(songFileList.get(playSongID));
+        playSong(songFileList.get(playSongID));
+        startSong = true;
         //No function to play previous song
         //Must keep track of current song and the previous song
 
