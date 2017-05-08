@@ -8,8 +8,10 @@ package musicplayerapp;
 import java.sql.Statement;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -49,6 +51,7 @@ public class Database {
     public void createTables() throws SQLException {
         String createString =
         "CREATE TABLE songInfo("
+                + "SONGID VARCHAR(30),"
                 + "TITLE VARCHAR(30),"
                 + "ARTIST VARCHAR(30),"
                 + "ALBUM VARCHAR(30),"
@@ -56,8 +59,8 @@ public class Database {
                 + "GENRE VARCHAR(3)"
                 + ")";
         PreparedStatement pstmt = conn.prepareStatement(createString);
-        //pstmt.executeUpdate();
         pstmt.close();
+        
     }
 
     /**
@@ -90,29 +93,61 @@ public class Database {
     public void removeSong(int id) throws SQLException {
 
     }
-    
-    public String getTitle(int id){
+    public String getTitle(int id) throws SQLException {
         String title;
+        String getTitle = "select * from songInfo where id = ?";
+        PreparedStatement statement = conn.prepareStatement(getTitle);
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        title = resultSet.getString(2);
         return title;
     }
-    
-    public String getArtist(int id){
+
+    public String getArtist(int id) throws SQLException {
         String artist;
+
+        String getArtist = "select * from songInfo where id = ?";
+        PreparedStatement statement = conn.prepareStatement(getArtist);
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        artist = resultSet.getString(3);
         return artist;
     }
-    
-    public String getAlbum(int id){
+
+    public String getAlbum(int id) throws SQLException {
         String album;
+
+        String getAlbum = "select * from songInfo where id = ?";
+        PreparedStatement statement = conn.prepareStatement(getAlbum);
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        album = resultSet.getString(4);
         return album;
     }
-    
-    public String getYear(int id){
+
+    public String getYear(int id) throws SQLException {
         String year;
+
+        String getYear = "select * from songInfo where id = ?";
+        PreparedStatement statement = conn.prepareStatement(getYear);
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        year = resultSet.getString(5);
         return year;
     }
-    
-    public int getGenre(ind id){
+
+    public int getGenre(int id) throws SQLException {
         int genre;
+        String getGenre = "select * from songInfo where id = ?";
+        PreparedStatement statement = conn.prepareStatement(getGenre);
+        statement.setInt(1, id);
+
+        ResultSet resultSet = statement.executeQuery();
+        genre = resultSet.getInt(6);
         return genre;
     }
             
