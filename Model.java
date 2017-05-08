@@ -24,7 +24,8 @@ public class Model {
     private BasicPlayer bp;
     private double volumeLevel = .5;
 
-    int playSongID;
+    int playSongID; //id for the basicplayer to keep track of which song is playing
+    int songID; //id for the database
     
     //variables for the song
     Mp3File song1;
@@ -41,6 +42,7 @@ public class Model {
     public Model() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
         
         playSongID = 0;
+        songID = 0;
         
         this.song1 = new Mp3File("fur-elise.mp3");
         this.song2 = new Mp3File("mpthreetest.mp3");
@@ -77,15 +79,9 @@ public class Model {
      */
     public void populateDatabase() throws SQLException {
         for (int i = 0; i < songs.size(); i++) {
+            songID++;
             if (songs.get(i).hasId3v1Tag()) {
-                ID3v1 id3v1Tag = songs.get(i).getId3v1Tag();
-
-                String title = id3v1Tag.getTitle();
-                String artist = id3v1Tag.getArtist();
-                String album = id3v1Tag.getAlbum();
-                String year = id3v1Tag.getYear();
-                int genre = id3v1Tag.getGenre();
-                appDB.addSong(title, artist, album, year, genre);
+                addSong(songs.get(i), songID);       
             }
         }
     }
@@ -107,15 +103,15 @@ public class Model {
     /**
      *
      */
-    public void addSong(Mp3File songToBeAdded) throws SQLException {
+    public void addSong(Mp3File songToBeAdded, int songID) throws SQLException {
         ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();
-
+        int idNum = songID;
         String title = id3v1Tag.getTitle();
         String artist = id3v1Tag.getArtist();
         String album = id3v1Tag.getAlbum();
         String year = id3v1Tag.getYear();
         int genre = id3v1Tag.getGenre();
-        appDB.addSong(title, artist, album, year, genre);
+        appDB.addSong(idNum, title, artist, album, year, genre);
     }
 
     /**

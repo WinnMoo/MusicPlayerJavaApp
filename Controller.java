@@ -6,6 +6,7 @@
 package musicplayerapp;
 
 import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,6 +27,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTable;
 import javax.swing.event.ChangeEvent;
@@ -122,6 +124,7 @@ public class Controller {
                 int action = Integer.parseInt(event.getActionCommand());
                 switch (action) {
                     case 0:
+
                         System.out.println("Play button was pressed");
                          {
                             try {
@@ -172,18 +175,18 @@ public class Controller {
                             }
                         }
                         break;
-                        
+
                     case 5:
                         System.out.println("Volume Down Button pressed");
-                {
-                    try {
-                        appModel.volumeDown();
-                    } catch (BasicPlayerException ex) {
-                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
+                         {
+                            try {
+                                appModel.volumeDown();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         break;
-                         
+
                 }
             }
 
@@ -209,10 +212,12 @@ public class Controller {
 
                 int action = Integer.parseInt(event.getActionCommand());
                 switch (action) {
+                    //needs work
                     case 0:
                         System.out.println("Adding song not in library");
 
                         break;
+                    //needs work
                     case 1:
                         System.out.println("Deleting song from library");
 
@@ -313,5 +318,85 @@ public class Controller {
                 setVisible(false);
             }
         }
+    }
+
+    //create a new jdialog for adding a song to the library
+    public class addSongDialog extends JDialog {
+
+        File songToAdd;
+        String filename;
+        boolean ok = false;
+        JFileChooser chooser;
+
+        public addSongDialog() {
+            setSize(500, 500);
+            chooser = new JFileChooser();
+            chooser.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    try {
+                        getFile(e);
+                        System.out.println("asdf");
+                    } catch (BasicPlayerException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (UnsupportedTagException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (InvalidDataException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+
+            add(chooser);
+
+            setModal(true);
+        }
+
+        void getFile(ActionEvent e) throws BasicPlayerException, IOException, UnsupportedTagException, InvalidDataException, SQLException {
+            if (e.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
+
+                filename = chooser.getSelectedFile().getAbsolutePath();
+                System.out.println("filename");
+                ok = true;
+                songToAdd = chooser.getSelectedFile();
+
+                appModel.songFileList.add(songToAdd); //adds the song to the playlist
+                
+                Mp3File songToAddTags = new Mp3File(songToAdd.getName());
+                appModel.songID++;
+                appModel.addSong(songToAddTags, appModel.songID); //adds the song to the database
+
+                //needs code to update jtable with the new song added
+                
+                setVisible(false);
+            } else {
+                ok = false;
+                setVisible(false);
+            }
+        }
+    }
+
+    public class myJTable extends JTable {
+        
+        public myJTable(Object[][] data, String[] columns) {
+            
+            MouseListener mL = new MouseAdapter(){
+            JTable table = new JTable(data, columns);
+                
+            public void mousePressed(MouseEvent e) {
+               int CurrentSelectedRow = table.getSelectedRow();
+               System.out.println("Selected index = " + CurrentSelectedRow);
+            }
+        };
+            this.addMouseListener(mL);
+            
+        }
+        
+        
     }
 }
