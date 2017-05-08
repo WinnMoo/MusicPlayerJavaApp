@@ -69,15 +69,14 @@ public class Database {
      * @param genre
      * @throws java.sql.SQLException
      */
-    public void addSong(int idNum, String title, String artist, String album, String year, int genre) throws SQLException {
-        String SQL = "INSERT INTO songInfo VALUES (?, ?, ?, ?, ?, ?)";
+    public void addSong(String title, String artist, String album, String year, int genre) throws SQLException {
+        String SQL = "INSERT INTO songInfo VALUES (?, ?, ?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(SQL);
-        pstmt.setInt(1, idNum);
-        pstmt.setString(2, title);
-        pstmt.setString(3, artist);
-        pstmt.setString(4, album);
-        pstmt.setString(5, year);
-        pstmt.setInt(6, genre);
+        pstmt.setString(1, title);
+        pstmt.setString(2, artist);
+        pstmt.setString(3, album);
+        pstmt.setString(4, year);
+        pstmt.setInt(5, genre);
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -87,33 +86,7 @@ public class Database {
      * @param songName
      * @throws java.sql.SQLException
      */
-    public void removeSong(int id) throws SQLException {
+    public void removeSong(String songName) throws SQLException {
 
     }
-    
-    public String getTitle(int id){
-        String title;
-        return title;
-    }
-    
-    public String getArtist(int id){
-        String artist;
-        return artist;
-    }
-    
-    public String getAlbum(int id){
-        String album;
-        return album;
-    }
-    
-    public String getYear(int id){
-        String year;
-        return year;
-    }
-    
-    public int getGenre(ind id){
-        int genre;
-        return genre;
-    }
-            
 }

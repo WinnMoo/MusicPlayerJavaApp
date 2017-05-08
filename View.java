@@ -8,9 +8,6 @@ package musicplayerapp;
 import com.mpatric.mp3agic.ID3v1;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
 import musicplayerapp.Controller.MyJSlider;
@@ -40,7 +37,7 @@ public class View {
 
     private boolean songIsPlaying = false;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
-    protected MyJButton playButton;
+    private MyJButton playButton;
     private MyJButton previousSongButton;
     private MyJButton skipSongButton;
     private MyJButton stopButton;
@@ -67,8 +64,8 @@ public class View {
         appMenu = new JMenu("Menu");
         playExternalSongItem = appController.new MyJMenuItem("Play Song Not in Library");
         exitAppItem = appController.new MyJMenuItem("Exit Application");
-        addSongItem = appController.new MyJMenuItem("Add a Song to the Library");
-        deleteSongItem = appController.new MyJMenuItem("Delete a Song from the Library");
+        addSongItem = appController.new MyJMenuItem("Add a Song");
+        deleteSongItem = appController.new MyJMenuItem("Delete a Song");
 
         topMenuPanel = new JPanel(new BorderLayout());
         topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -88,7 +85,7 @@ public class View {
 
         volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
 
-        //need to update jtable to pull data from database instead of pulling data from file list
+        //create jtables
         String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
         Object[][] data = new Object[20][5];
         for (int i = 0; i < appController.appModel.songs.size(); i++) {
@@ -114,14 +111,6 @@ public class View {
         }
 
         table = new JTable(data, columns);
-        MouseListener mouseListener = new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-               int currentSelectedRow = table.getSelectedRow();
-               System.out.println("Selected index = " + currentSelectedRow);
-            }
-        };
-        //assign the listener
-        table.addMouseListener(mouseListener);
         scrollPane = new JScrollPane(table);
 
         FRAME_WIDTH = 800;
