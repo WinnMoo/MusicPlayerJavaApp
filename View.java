@@ -41,6 +41,9 @@ public class View {
     private MyJButton previousSongButton;
     private MyJButton skipSongButton;
     private MyJButton stopButton;
+    
+    private MyJButton volumeUpButton;
+    private MyJButton volumeDownButton;
 
     private JTable table;
     private JScrollPane scrollPane;
@@ -76,6 +79,9 @@ public class View {
         previousSongButton = appController.new MyJButton("Previous");
         skipSongButton = appController.new MyJButton("Skip");
         stopButton = appController.new MyJButton("Stop");
+        volumeUpButton = appController.new MyJButton("Increase Vol");
+        volumeDownButton = appController.new MyJButton("Decrease Vol");
+        
 
         volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
 
@@ -130,12 +136,18 @@ public class View {
         bottomButtonsPanel.add(playButton);
         bottomButtonsPanel.add(skipSongButton);
         bottomButtonsPanel.add(stopButton);
-        bottomButtonsPanel.add(volumeSlider);
+        bottomButtonsPanel.add(volumeUpButton);
+        bottomButtonsPanel.add(volumeDownButton);
+        
+        
+        //bottomButtonsPanel.add(volumeSlider);
 
         playButton.setActionCommand("0");
         previousSongButton.setActionCommand("1");
         skipSongButton.setActionCommand("2");
         stopButton.setActionCommand("3");
+        volumeUpButton.setActionCommand("4");
+        volumeDownButton.setActionCommand("5");
 
         addSongItem.setActionCommand("0");
         deleteSongItem.setActionCommand("1");

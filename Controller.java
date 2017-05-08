@@ -161,6 +161,29 @@ public class Controller {
                             }
                         }
                         break;
+
+                    case 4:
+                        System.out.println("Volume Up Button pressed");
+                         {
+                            try {
+                                appModel.volumeUp();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
+                        
+                    case 5:
+                        System.out.println("Volume Down Button pressed");
+                {
+                    try {
+                        appModel.volumeDown();
+                    } catch (BasicPlayerException ex) {
+                        Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                        break;
+                         
                 }
             }
 
@@ -283,7 +306,7 @@ public class Controller {
 
                 appModel.loadSong(songToBePlayed);
                 appModel.playSong();
-                
+
                 setVisible(false);
             } else {
                 ok = false;
