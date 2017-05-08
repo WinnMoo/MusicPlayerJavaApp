@@ -94,60 +94,70 @@ public class Database {
 
     }
     public String getTitle(int id) throws SQLException {
-        String title;
-        String getTitle = "select * from songInfo where id = ?";
+        String title = "asdf";
+        String getTitle = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getTitle);
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
+        while(resultSet.next()){
         title = resultSet.getString(2);
+        }
         return title;
     }
 
     public String getArtist(int id) throws SQLException {
-        String artist;
+        String artist = "asdf";
 
-        String getArtist = "select * from songInfo where id = ?";
+        String getArtist = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getArtist);
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
+        while(resultSet.next()){
         artist = resultSet.getString(3);
+        }
         return artist;
     }
 
     public String getAlbum(int id) throws SQLException {
-        String album;
+        String album = "asdf";
 
-        String getAlbum = "select * from songInfo where id = ?";
+        String getAlbum = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getAlbum);
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
+        while(resultSet.next()){
         album = resultSet.getString(4);
+        }
         return album;
     }
 
     public String getYear(int id) throws SQLException {
-        String year;
+        String year = "asdf";
 
-        String getYear = "select * from songInfo where id = ?";
+        String getYear = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getYear);
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
+        while(resultSet.next()){
         year = resultSet.getString(5);
+        }
         return year;
     }
 
     public int getGenre(int id) throws SQLException {
-        int genre;
-        String getGenre = "select * from songInfo where id = ?";
+        int genre = 0;
+        String getGenre = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getGenre);
         statement.setInt(1, id);
 
         ResultSet resultSet = statement.executeQuery();
+        while(resultSet.next()){
         genre = resultSet.getInt(6);
+        }
         return genre;
     }
             

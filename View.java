@@ -11,6 +11,7 @@ import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.SQLException;
 import javax.swing.*;
 import musicplayerapp.Controller.MyJButton;
 import musicplayerapp.Controller.MyJSlider;
@@ -58,7 +59,7 @@ public class View {
      * Construct instance variables and set the width and height constants for
      * the frame.
      */
-    public View(Controller appController) {
+    public View(Controller appController) throws SQLException {
         frame = new JFrame();
         frame.setLayout(new FlowLayout());
         this.appController = appController;
@@ -91,23 +92,27 @@ public class View {
         //need to update jtable to pull data from database instead of pulling data from file list
         String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
         Object[][] data = new Object[20][5];
-        for (int i = 0; i < appController.appModel.songs.size(); i++) {
-            ID3v1 id3v1Tag = appController.appModel.songs.get(i).getId3v1Tag();
+        for (int i = 0; i < appController.appModel.songs.size(); i++){
             for (int j = 0; j < 5; j++) {
                 if (j == 0) {
-                    String title = id3v1Tag.getTitle();
+                    //String title = id3v1Tag.getTitle();
+                    String title = appController.appModel.appDB.getTitle(i+1);
                     data[i][j] = title;
                 } else if (j == 1) {
-                    String artist = id3v1Tag.getArtist();
+                    //String artist = id3v1Tag.getArtist();
+                    String artist = appController.appModel.appDB.getArtist(i+1);
                     data[i][j] = artist;
                 } else if (j == 2) {
-                    String album = id3v1Tag.getAlbum();
+                    //String album = id3v1Tag.getAlbum();
+                    String album = appController.appModel.appDB.getAlbum(i+1);
                     data[i][j] = album;
                 } else if (j == 3) {
-                    String year = id3v1Tag.getYear();
+                    //String year = id3v1Tag.getYear();
+                    String year = appController.appModel.appDB.getYear(i+1);
                     data[i][j] = year;
                 } else if (j == 4) {
-                    int genre = id3v1Tag.getGenre();
+                    //int genre = id3v1Tag.getGenre();
+                    int genre = appController.appModel.appDB.getGenre(i+1);
                     data[i][j] = genre;
                 }
             }

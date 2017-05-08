@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class Model {
 
-    private Database appDB;
+    protected Database appDB;
     private BasicPlayer bp;
     private double volumeLevel = .5;
 
@@ -67,8 +67,8 @@ public class Model {
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        appDB.createTables();
-        populateDatabase();
+        //appDB.createTables();
+        //populateDatabase();
     }
 
     /**
