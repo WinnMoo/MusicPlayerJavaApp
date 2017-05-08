@@ -261,6 +261,7 @@ public class Controller {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         getFile(e);
+                        System.out.println("asdf");
                     } catch (BasicPlayerException ex) {
                         Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -273,15 +274,17 @@ public class Controller {
         }
 
         void getFile(ActionEvent e) throws BasicPlayerException {
-            if (e.getActionCommand().equalsIgnoreCase("ApprovableSelection")) {
+            if (e.getActionCommand().equalsIgnoreCase("ApproveSelection")) {
 
                 filename = chooser.getSelectedFile().getAbsolutePath();
+                System.out.println("filename");
                 ok = true;
                 songToBePlayed = chooser.getSelectedFile();
 
                 appModel.loadSong(songToBePlayed);
                 appModel.playSong();
-
+                
+                setVisible(false);
             } else {
                 ok = false;
                 setVisible(false);
