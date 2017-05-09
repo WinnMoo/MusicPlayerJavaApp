@@ -224,7 +224,7 @@ public class Controller {
                         break;
                     case 2:
                         System.out.println("Playing song not in library");
-                        myDialog md = new myDialog();
+                        MyDialog md = new MyDialog();
                         md.setVisible(true);
                         if (md.ok) {
                             System.out.println("Filename is " + md.filename);
@@ -273,14 +273,14 @@ public class Controller {
 
     }
 
-    public class myDialog extends JDialog {
+    public class MyDialog extends JDialog {
 
         File songToBePlayed;
         String filename;
         boolean ok = false;
         JFileChooser chooser;
 
-        public myDialog() {
+        public MyDialog() {
             setSize(500, 500);
             chooser = new JFileChooser();
             chooser.addActionListener(new ActionListener() {
@@ -321,14 +321,14 @@ public class Controller {
     }
 
     //create a new jdialog for adding a song to the library
-    public class addSongDialog extends JDialog {
+    public class AddSongDialog extends JDialog {
 
         File songToAdd;
         String filename;
         boolean ok = false;
         JFileChooser chooser;
 
-        public addSongDialog() {
+        public AddSongDialog() {
             setSize(500, 500);
             chooser = new JFileChooser();
             chooser.addActionListener(new ActionListener() {
@@ -381,9 +381,9 @@ public class Controller {
         }
     }
 
-    public class myJTable extends JTable {
+    public class MyJTable extends JTable {
         
-        public myJTable(Object[][] data, String[] columns) {
+        public MyJTable(Object[][] data, String[] columns) {
             
             MouseListener mL = new MouseAdapter(){
             JTable table = new JTable(data, columns);

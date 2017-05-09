@@ -58,6 +58,7 @@ public class View {
     private MyJButton volumeDownButton;
 
     private JTable table;
+    private Object[][] data;
     private JScrollPane scrollPane;
 
     private final int FRAME_WIDTH;
@@ -104,37 +105,10 @@ public class View {
         
 
         volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
+        
+        data = new Object[20][5];
+        updateTableView();
 
-        //need to update jtable to pull data from database instead of pulling data from file list
-        String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
-        Object[][] data = new Object[20][5];
-        for (int i = 0; i < appController.appModel.songs.size(); i++){
-            for (int j = 0; j < 5; j++) {
-                if (j == 0) {
-                    //String title = id3v1Tag.getTitle();
-                    String title = appController.appModel.appDB.getTitle(i+1);
-                    data[i][j] = title;
-                } else if (j == 1) {
-                    //String artist = id3v1Tag.getArtist();
-                    String artist = appController.appModel.appDB.getArtist(i+1);
-                    data[i][j] = artist;
-                } else if (j == 2) {
-                    //String album = id3v1Tag.getAlbum();
-                    String album = appController.appModel.appDB.getAlbum(i+1);
-                    data[i][j] = album;
-                } else if (j == 3) {
-                    //String year = id3v1Tag.getYear();
-                    String year = appController.appModel.appDB.getYear(i+1);
-                    data[i][j] = year;
-                } else if (j == 4) {
-                    //int genre = id3v1Tag.getGenre();
-                    int genre = appController.appModel.appDB.getGenre(i+1);
-                    data[i][j] = genre;
-                }
-            }
-        }
-
-        table = new JTable(data, columns);
         MouseListener mouseListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
                int currentSelectedRow = table.getSelectedRow();
@@ -201,6 +175,41 @@ public class View {
         frame.add(bottomMenuPanel);
 
         frame.setVisible(true);
+    }
+    
+    /**
+     * 
+     */
+    public void updateTableView() throws SQLException {
+        String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
+        
+        for (int i = 0; i < appController.appModel.songs.size(); i++){
+            for (int j = 0; j < 5; j++) {
+                if (j == 0) {
+                    //String title = id3v1Tag.getTitle();
+                    String title = appController.appModel.appDB.getTitle(i+1);
+                    data[i][j] = title;
+                } else if (j == 1) {
+                    //String artist = id3v1Tag.getArtist();
+                    String artist = appController.appModel.appDB.getArtist(i+1);
+                    data[i][j] = artist;
+                } else if (j == 2) {
+                    //String album = id3v1Tag.getAlbum();
+                    String album = appController.appModel.appDB.getAlbum(i+1);
+                    data[i][j] = album;
+                } else if (j == 3) {
+                    //String year = id3v1Tag.getYear();
+                    String year = appController.appModel.appDB.getYear(i+1);
+                    data[i][j] = year;
+                } else if (j == 4) {
+                    //int genre = id3v1Tag.getGenre();
+                    int genre = appController.appModel.appDB.getGenre(i+1);
+                    data[i][j] = genre;
+                }
+            }
+        }
+        table = new JTable(data, columns);
+
     }
 
     //updating text doesn't work
