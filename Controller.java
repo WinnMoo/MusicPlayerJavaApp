@@ -91,6 +91,20 @@ public class Controller {
         appView.updateStopButtonUI();
         appModel.stopSong();
     }
+    
+    /**
+     * 
+     */
+    public void addSong() {
+        //appModel.addSong();
+    }
+    
+    /**
+     * 
+     */
+    public void deleteSong() {
+        
+    }
 
     class KeyboardListener implements KeyListener {
 
@@ -215,7 +229,7 @@ public class Controller {
                     //needs work
                     case 0:
                         System.out.println("Adding song not in library");
-
+                        
                         break;
                     //needs work
                     case 1:

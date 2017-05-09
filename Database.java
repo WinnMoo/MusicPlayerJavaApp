@@ -91,8 +91,13 @@ public class Database {
      * @throws java.sql.SQLException
      */
     public void removeSong(int id) throws SQLException {
-
+        String SQL = "DELETE FROM SongInfo WHERE SongId = (?)";
+        PreparedStatement pstmt = conn.prepareStatement(SQL);
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
+        pstmt.close();
     }
+    
     public String getTitle(int id) throws SQLException {
         String title = "asdf";
         String getTitle = "select * from songInfo where SONGID = ?";
@@ -101,7 +106,7 @@ public class Database {
 
         ResultSet resultSet = statement.executeQuery();
         while(resultSet.next()){
-        title = resultSet.getString(2);
+            title = resultSet.getString(2);
         }
         return title;
     }
@@ -115,7 +120,7 @@ public class Database {
 
         ResultSet resultSet = statement.executeQuery();
         while(resultSet.next()){
-        artist = resultSet.getString(3);
+            artist = resultSet.getString(3);
         }
         return artist;
     }
@@ -129,7 +134,7 @@ public class Database {
 
         ResultSet resultSet = statement.executeQuery();
         while(resultSet.next()){
-        album = resultSet.getString(4);
+            album = resultSet.getString(4);
         }
         return album;
     }
@@ -143,7 +148,7 @@ public class Database {
 
         ResultSet resultSet = statement.executeQuery();
         while(resultSet.next()){
-        year = resultSet.getString(5);
+            year = resultSet.getString(5);
         }
         return year;
     }
@@ -156,7 +161,7 @@ public class Database {
 
         ResultSet resultSet = statement.executeQuery();
         while(resultSet.next()){
-        genre = resultSet.getInt(6);
+            genre = resultSet.getInt(6);
         }
         return genre;
     }

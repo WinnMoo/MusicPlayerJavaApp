@@ -93,11 +93,8 @@ public class Model {
      * @param primaryKey the unique identifier which shall be determined by
      * event of user right clicking the song in the GUI
      */
-    public void deleteSong(int primaryKey) {
-        /*
-        String query = "DELETE FROM TableName WHERE id = " + primaryKey;
-        stat.execute(query);
-         */
+    public void deleteSong(int primaryKey) throws SQLException {
+        appDB.removeSong(primaryKey);
     }
 
     /**
@@ -112,6 +109,7 @@ public class Model {
         String year = id3v1Tag.getYear();
         int genre = id3v1Tag.getGenre();
         appDB.addSong(idNum, title, artist, album, year, genre);
+
     }
 
     /**
