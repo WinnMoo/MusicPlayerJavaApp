@@ -36,6 +36,14 @@ public class View {
     private JMenuItem exitAppItem;
     private JMenuItem addSongItem;
     private JMenuItem deleteSongItem;
+    
+    private JMenu controlMenu;
+    private JMenuItem play;
+    private JMenuItem next;
+    private JMenuItem previous;
+    private JMenuItem currentSong;
+    private JMenuItem increaseVol;
+    private JMenuItem decreaseVol;
 
     private MyJSlider volumeSlider;
 
@@ -70,6 +78,14 @@ public class View {
         exitAppItem = appController.new MyJMenuItem("Exit Application");
         addSongItem = appController.new MyJMenuItem("Add a Song to the Library");
         deleteSongItem = appController.new MyJMenuItem("Delete a Song from the Library");
+        
+        controlMenu = new JMenu("Controls");
+        play = appController.new MyJMenuItem("Play");
+        next = appController.new MyJMenuItem("Next");
+        previous = appController.new MyJMenuItem("Previous");
+        currentSong = appController.new MyJMenuItem("Go to Current Song");
+        increaseVol = appController.new MyJMenuItem("Increase Volume");
+        decreaseVol = appController.new MyJMenuItem("Decrease Volume");
 
         topMenuPanel = new JPanel(new BorderLayout());
         topButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -142,11 +158,20 @@ public class View {
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
 
         appMenuBar.add(appMenu);
+        appMenuBar.add(controlMenu);
 
         appMenu.add(addSongItem);
         appMenu.add(deleteSongItem);
         appMenu.add(playExternalSongItem);
         appMenu.add(exitAppItem);
+        
+        controlMenu.add(play);
+        controlMenu.add(next);
+        controlMenu.add(previous);
+        controlMenu.add(currentSong);
+        controlMenu.add(increaseVol);
+        controlMenu.add(decreaseVol);
+        
 
         bottomButtonsPanel.add(previousSongButton);
         bottomButtonsPanel.add(playButton);
