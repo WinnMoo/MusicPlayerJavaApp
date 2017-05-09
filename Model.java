@@ -22,6 +22,7 @@ public class Model {
 
     protected Database appDB;
     private BasicPlayer bp;
+    private BasicController bc;
     private double volumeLevel = .5;
 
     int playSongID; //id for the basicplayer to keep track of which song is playing
@@ -124,13 +125,18 @@ public class Model {
         if (startSong == false) {
             startSong = true;
             bp.play();
+            System.out.println("Play was called");
         } else {
             if (!isSongPlaying) {
+                System.out.println("Resuming Playback");
                 bp.resume();
+                System.out.println("Playback resumed");
                 isSongPlaying = true;
 
             } else {
+                System.out.println("Pausing Playback");
                 bp.pause();
+                System.out.println("Playback Paused");
                 isSongPlaying = false;
             }
         }

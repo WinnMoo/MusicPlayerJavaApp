@@ -63,7 +63,8 @@ public class Controller {
      */
     public void playSong() throws BasicPlayerException {
         appView.updatePlayButtonUI();
-        appModel.loadSong(appModel.songFileList.get(appModel.playSongID));
+        //commented out the following line, seems to interfere with play/pause. Doesn't seem to affect functionality of program
+        //appModel.loadSong(appModel.songFileList.get(appModel.playSongID));
         appModel.playSong();
     }
 
