@@ -38,9 +38,9 @@ public class View {
     private JMenuItem deleteSongItem;
     
     private JMenu controlMenu;
-    private JMenuItem play;
-    private JMenuItem next;
-    private JMenuItem previous;
+    private JMenuItem playItem;
+    private JMenuItem nextItem;
+    private JMenuItem previousItem;
     private JMenuItem currentSong;
     private JMenuItem increaseVol;
     private JMenuItem decreaseVol;
@@ -81,9 +81,9 @@ public class View {
         deleteSongItem = appController.new MyJMenuItem("Delete a Song from the Library");
         
         controlMenu = new JMenu("Controls");
-        play = appController.new MyJMenuItem("Play");
-        next = appController.new MyJMenuItem("Next");
-        previous = appController.new MyJMenuItem("Previous");
+        playItem = appController.new MyJMenuItem("Play");
+        nextItem = appController.new MyJMenuItem("Next");
+        previousItem = appController.new MyJMenuItem("Previous");
         currentSong = appController.new MyJMenuItem("Go to Current Song");
         increaseVol = appController.new MyJMenuItem("Increase Volume");
         decreaseVol = appController.new MyJMenuItem("Decrease Volume");
@@ -139,9 +139,9 @@ public class View {
         appMenu.add(playExternalSongItem);
         appMenu.add(exitAppItem);
         
-        controlMenu.add(play);
-        controlMenu.add(next);
-        controlMenu.add(previous);
+        controlMenu.add(playItem);
+        controlMenu.add(nextItem);
+        controlMenu.add(previousItem);
         controlMenu.add(currentSong);
         controlMenu.add(increaseVol);
         controlMenu.add(decreaseVol);
@@ -168,7 +168,14 @@ public class View {
         deleteSongItem.setActionCommand("1");
         playExternalSongItem.setActionCommand("2");
         exitAppItem.setActionCommand("3");
-
+        
+        playItem.setActionCommand("4");     
+        nextItem.setActionCommand("5");
+        previousItem.setActionCommand("6");
+        currentSong.setActionCommand("7");
+        increaseVol.setActionCommand("8");
+        decreaseVol.setActionCommand("9");
+        
         bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
         frame.setJMenuBar(appMenuBar);
         frame.add(scrollPane, BorderLayout.CENTER);

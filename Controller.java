@@ -201,12 +201,12 @@ public class Controller {
 
         public MyJMenuItem(String textToDisplay) {
             this.setText(textToDisplay);
-            menuListener ml = new menuListener();
+            MenuListener ml = new MenuListener();
             ml.createComponents();
 
         }
 
-        class menuListener implements ActionListener {
+        class MenuListener implements ActionListener {
 
             public void actionPerformed(ActionEvent event) {
 
@@ -236,12 +236,58 @@ public class Controller {
                         System.out.println("Exiting application");
                         System.exit(0);
                         break;
+                    case 4:
+                        System.out.println("Play button was pressed");
+                         {
+                            try {
+                                playSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
+                    case 5:
+                        System.out.println("Skip button was pressed");
+                         {
+                            try {
+                                skipSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
+                    case 6:
+                        System.out.println("Previous button was pressed");
+                        break;
+                    case 7:
+                        System.out.println("Go to Current Song");
+                        break;
+                    case 8:
+                        System.out.println("Volume Up Button pressed");
+                         {
+                            try {
+                                appModel.volumeUp();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
+                    case 9:
+                        System.out.println("Volume Down Button pressed");
+                         {
+                            try {
+                                appModel.volumeDown();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        break;
 
                 }
             }
 
             private void createComponents() {
-                ActionListener listener = new menuListener();
+                ActionListener listener = new MenuListener();
                 addActionListener(listener);
             }
         }
