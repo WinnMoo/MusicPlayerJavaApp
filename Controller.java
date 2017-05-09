@@ -92,7 +92,7 @@ public class Controller {
         appModel.stopSong();
     }
 
-    class keyboardListener implements KeyListener {
+    class KeyboardListener implements KeyListener {
 
         public void keyPressed(KeyEvent e) {
 
@@ -258,6 +258,13 @@ public class Controller {
                         break;
                     case 6:
                         System.out.println("Previous button was pressed");
+                        {
+                            try {
+                                previousSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         break;
                     case 7:
                         System.out.println("Go to Current Song");
@@ -282,7 +289,6 @@ public class Controller {
                             }
                         }
                         break;
-
                 }
             }
 

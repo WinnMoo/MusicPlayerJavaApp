@@ -42,6 +42,7 @@ public class View {
     private JMenuItem nextItem;
     private JMenuItem previousItem;
     private JMenuItem currentSong;
+    private JMenuItem separator;
     private JMenuItem increaseVol;
     private JMenuItem decreaseVol;
 
@@ -85,6 +86,7 @@ public class View {
         nextItem = appController.new MyJMenuItem("Next");
         previousItem = appController.new MyJMenuItem("Previous");
         currentSong = appController.new MyJMenuItem("Go to Current Song");
+        separator = new JMenuItem();
         increaseVol = appController.new MyJMenuItem("Increase Volume");
         decreaseVol = appController.new MyJMenuItem("Decrease Volume");
 
@@ -143,6 +145,7 @@ public class View {
         controlMenu.add(nextItem);
         controlMenu.add(previousItem);
         controlMenu.add(currentSong);
+        controlMenu.add(separator);
         controlMenu.add(increaseVol);
         controlMenu.add(decreaseVol);
         
