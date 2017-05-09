@@ -31,7 +31,7 @@ public class Model {
     //variables for the song
     Mp3File song1;
     Mp3File song2;
-    ArrayList<Mp3File> songs = new ArrayList<Mp3File>();
+    ArrayList<Mp3File> songsDisplayData = new ArrayList<Mp3File>();
     
     //
     File songFile1;
@@ -48,8 +48,8 @@ public class Model {
         this.song1 = new Mp3File("fur-elise.mp3");
         this.song2 = new Mp3File("mpthreetest.mp3");
         
-        songs.add(song1);
-        songs.add(song2);
+        songsDisplayData.add(song1);
+        songsDisplayData.add(song2);
         
         this.songFile1 = new File("fur-elise.mp3");
         this.songFile2 = new File("mpthreetest.mp3");
@@ -79,10 +79,10 @@ public class Model {
      * @throws SQLException
      */
     public void populateDatabase() throws SQLException {
-        for (int i = 0; i < songs.size(); i++) {
+        for (int i = 0; i < songsDisplayData.size(); i++) {
             songID++;
-            if (songs.get(i).hasId3v1Tag()) {
-                addSong(songs.get(i), songID);       
+            if (songsDisplayData.get(i).hasId3v1Tag()) {
+                addSong(songsDisplayData.get(i), songID);       
             }
         }
     }

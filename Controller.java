@@ -230,7 +230,8 @@ public class Controller {
                     //needs work
                     case 0:
                         System.out.println("Adding song not in library");
-                        
+                        // insert into db
+                        // get table data back and update the view
                         break;
                     //needs work
                     case 1:

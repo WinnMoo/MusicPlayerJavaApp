@@ -193,7 +193,7 @@ public class View {
     public void updateTableView() throws SQLException {
         String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
         
-        for (int i = 0; i < appController.appModel.songs.size(); i++){
+        for (int i = 0; i < appController.appModel.songsDisplayData.size(); i++){
             for (int j = 0; j < 5; j++) {
                 if (j == 0) {
                     //String title = id3v1Tag.getTitle();
