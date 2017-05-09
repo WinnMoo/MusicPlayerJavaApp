@@ -28,14 +28,7 @@ public class Model {
     int playSongID; //id for the basicplayer to keep track of which song is playing
     int songID; //id for the database
     
-    //variables for the song
-    Mp3File song1;
-    Mp3File song2;
     ArrayList<Mp3File> songsDisplayData = new ArrayList<Mp3File>();
-    
-    //
-    File songFile1;
-    File songFile2;
     ArrayList<File> songFileList = new ArrayList<File>();
     private boolean startSong = false;
     private boolean isSongPlaying = true;
@@ -45,17 +38,19 @@ public class Model {
         playSongID = 0;
         songID = 0;
         
-        this.song1 = new Mp3File("fur-elise.mp3");
-        this.song2 = new Mp3File("mpthreetest.mp3");
-        
-        songsDisplayData.add(song1);
-        songsDisplayData.add(song2);
-        
-        this.songFile1 = new File("fur-elise.mp3");
-        this.songFile2 = new File("mpthreetest.mp3");
-        
-        songFileList.add(songFile1);
-        songFileList.add(songFile2);
+//        this.song1 = new Mp3File("fur-elise.mp3");
+//        this.song2 = new Mp3File("mpthreetest.mp3");
+//        
+//        songsDisplayData.add(song1);
+//        songsDisplayData.add(song2);
+//        
+//        this.songFile1 = new File("fur-elise.mp3");
+//        this.songFile2 = new File("mpthreetest.mp3");
+
+        getSongDataToDisplay();
+
+//        songFileList.add(songFile1);
+//        songFileList.add(songFile2);
 
         bp = new BasicPlayer();
 
@@ -198,6 +193,13 @@ public class Model {
     public void volumeDown() throws BasicPlayerException {
         volumeLevel = volumeLevel - .1;
         bp.setGain(volumeLevel);
+    }
+
+    /**
+     * 
+     */
+    private void getSongDataToDisplay() {
+    
     }
 
 }
