@@ -91,7 +91,7 @@ public class Database {
      * @throws java.sql.SQLException
      */
     public void removeSong(int id) throws SQLException {
-        String SQL = "DELETE FROM SongInfo WHERE SongId = (?)";
+        String SQL = "DELETE FROM SongInfo WHERE SongId = ?";
         PreparedStatement pstmt = conn.prepareStatement(SQL);
         pstmt.setInt(1, id);
         pstmt.executeUpdate();
