@@ -179,6 +179,18 @@ public class View {
         increaseVol.setActionCommand("8");
         decreaseVol.setActionCommand("9");
         
+        KeyStroke spacebar = KeyStroke.getKeyStroke(' ');
+        playItem.setAccelerator(spacebar);
+        KeyStroke volUp = KeyStroke.getKeyStroke(73, 17);
+        increaseVol.setAccelerator(volUp);
+        KeyStroke volDown = KeyStroke.getKeyStroke(68, 17);
+        decreaseVol.setAccelerator(volDown);
+        KeyStroke skip = KeyStroke.getKeyStroke(39, 17);
+        nextItem.setAccelerator(skip);
+        KeyStroke previous = KeyStroke.getKeyStroke(37, 17);
+        previousItem.setAccelerator(previous);
+
+        
         bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
         frame.setJMenuBar(appMenuBar);
         frame.add(scrollPane, BorderLayout.CENTER);
