@@ -165,5 +165,15 @@ public class Database {
         }
         return genre;
     }
-            
+ 
+    public int getSongCount() throws SQLException {
+        int rowCount = 0;
+        query = "SELECT COUNT(*) AS rowcount FROM SongInfo";
+        ResultSet result = stat.executeQuery(query);
+        while (result.next()) {
+            rowCount = result.getInt(1);     
+        }
+        System.out.println("the row count is " + rowCount);
+        return rowCount;
+    }
 }

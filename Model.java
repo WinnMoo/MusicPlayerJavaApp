@@ -47,7 +47,7 @@ public class Model {
 //        this.songFile1 = new File("fur-elise.mp3");
 //        this.songFile2 = new File("mpthreetest.mp3");
 
-        getSongDataToDisplay();
+       // getSongDataToDisplay();
 
 //        songFileList.add(songFile1);
 //        songFileList.add(songFile2);
@@ -194,12 +194,9 @@ public class Model {
         volumeLevel = volumeLevel - .1;
         bp.setGain(volumeLevel);
     }
-
-    /**
-     * 
-     */
-    private void getSongDataToDisplay() {
     
+    public int getSongCount() throws SQLException {
+        return appDB.getSongCount();
     }
 
 }

@@ -61,6 +61,7 @@ public class View {
     private JTable table;
     private Object[][] data;
     private JScrollPane scrollPane;
+    private int rowsAmount;
 
     private final int FRAME_WIDTH;
     private final int FRAME_HEIGHT;
@@ -76,9 +77,9 @@ public class View {
 
         appMenuBar = new JMenuBar();
         appMenu = new JMenu("Menu");
-        playExternalSongItem = appController.new MyJMenuItem("Play Song Not in Library");
-        exitAppItem = appController.new MyJMenuItem("Exit Application");
         addSongItem = appController.new MyJMenuItem("Add a Song to the Library");
+        exitAppItem = appController.new MyJMenuItem("Exit Application");
+        playExternalSongItem = appController.new MyJMenuItem("Play Song Not in Library");
         deleteSongItem = appController.new MyJMenuItem("Delete a Song from the Library");
         
         controlMenu = new JMenu("Controls");
@@ -108,7 +109,6 @@ public class View {
 
         volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
         
-        data = new Object[20][5];
         updateTableView();
 
         MouseListener mouseListener = new MouseAdapter() {
@@ -204,8 +204,10 @@ public class View {
      */
     public void updateTableView() throws SQLException {
         String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
-        
-        for (int i = 0; i < appController.appModel.songsDisplayData.size(); i++){
+        rowsAmount = appController.getSongCount();
+        data = new Object[rowsAmount][5];
+        // appController.appModel.songsDisplayData.size()
+        for (int i = 0; i < rowsAmount; i++){
             for (int j = 0; j < 5; j++) {
                 if (j == 0) {
                     //String title = id3v1Tag.getTitle();

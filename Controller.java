@@ -93,18 +93,24 @@ public class Controller {
         appModel.stopSong();
     }
     
-    /**
-     * 
-     */
-    public void addSong() {
-        //appModel.addSong();
+    public int getSongCount() throws SQLException {
+        return appModel.getSongCount();
     }
     
     /**
      * 
      */
-    public void deleteSong() {
-        
+    public void addSong(Mp3File songFile) throws SQLException {
+        //appModel.addSong();
+        appView.updateTableView();
+    }
+    
+    /**
+     * 
+     */
+    public void deleteSong() throws SQLException {
+        // appModel.deleteSong()
+        appView.updateTableView();
     }
 
     class KeyboardListener implements KeyListener {
@@ -232,8 +238,32 @@ public class Controller {
                         System.out.println("Adding song not in library");
                         // insert into db
                         // get table data back and update the view
+                        MyDialog addSongDialog = new MyDialog();
+                        addSongDialog.setVisible(true);
+                        if (addSongDialog.ok) {
+                            System.out.println("Filename is " + addSongDialog.filename);
+                        } else {
+                            System.out.println("user clicked cancel");
+                        }
+                        
+                        String[] fileToAdd = addSongDialog.filename.split("/");
+                        String lastStrFileName = fileToAdd[fileToAdd.length-1];
+                        
+                        try {
+                            Mp3File mp3fileToAdd = new Mp3File(lastStrFileName);                   
+                            addSong(mp3fileToAdd);
+  
+                        } catch (IOException ex) {
+                            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (UnsupportedTagException ex) {
+                            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InvalidDataException ex) {
+                            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
                         break;
-                    //needs work
                     case 1:
                         System.out.println("Deleting song from library");
 
