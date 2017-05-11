@@ -336,7 +336,22 @@ public class Controller {
                         md.setVisible(true);
                         if (md.ok) {
                             System.out.println("Filename is " + md.filename);
-                            System.out.println("PLAYING not in library");
+                            
+                            String currentDirectory = System.getProperty("user.dir");
+        
+                            String[] fileName = md.filename.split("/");
+                            currentDirectory += "/src/musicplayerapp/" + fileName[fileName.length-1];
+                            
+                            System.out.println("**** THAT PATH IS " + currentDirectory);
+                            File fileToLoad = new File(currentDirectory);
+                            
+                            try {
+                                appModel.playExternalSong(fileToLoad);
+                                System.out.println("**** THAT PATH IS " + currentDirectory);
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            
                         } else {
                             System.out.println("user clicked cancel");
                         }
@@ -516,9 +531,9 @@ public class Controller {
                     }
                 }
             });
-
+            
             add(chooser);
-
+            
             setModal(true);
         }
 
