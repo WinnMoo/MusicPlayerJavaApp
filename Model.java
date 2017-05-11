@@ -98,8 +98,7 @@ public class Model {
      *
      */
     public void addSong(Mp3File songToBeAdded, String songFileName, int songID) throws SQLException {
-        
-        ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();
+        ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();        
         int idNum = songID;
         String title = id3v1Tag.getTitle();
         String artist = id3v1Tag.getArtist();

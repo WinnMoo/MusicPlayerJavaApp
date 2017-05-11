@@ -213,29 +213,37 @@ public class View {
             for (int j = 0; j < 5; j++) {
                 if (j == 0) {
                     //String title = id3v1Tag.getTitle();
-                    String title = appController.appModel.appDB.getTitle(i+1);
+                    String title = appController.appModel.appDB.getTitle(i);
                     data[i][j] = title;
                 } else if (j == 1) {
                     //String artist = id3v1Tag.getArtist();
-                    String artist = appController.appModel.appDB.getArtist(i+1);
+                    String artist = appController.appModel.appDB.getArtist(i);
                     data[i][j] = artist;
                 } else if (j == 2) {
                     //String album = id3v1Tag.getAlbum();
-                    String album = appController.appModel.appDB.getAlbum(i+1);
+                    String album = appController.appModel.appDB.getAlbum(i);
                     data[i][j] = album;
                 } else if (j == 3) {
                     //String year = id3v1Tag.getYear();
-                    String year = appController.appModel.appDB.getYear(i+1);
+                    String year = appController.appModel.appDB.getYear(i);
                     data[i][j] = year;
                 } else if (j == 4) {
                     //int genre = id3v1Tag.getGenre();
-                    int genre = appController.appModel.appDB.getGenre(i+1);
+                    int genre = appController.appModel.appDB.getGenre(i);
                     data[i][j] = genre;
                 }
             }
         }
+        
         table = new JTable(data, columns);
-
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public JTable getTable() {
+        return table;
     }
     
     //updating text doesn't work

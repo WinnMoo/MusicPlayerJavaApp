@@ -109,7 +109,7 @@ public class Database {
     }
     
     public String getTitle(int id) throws SQLException {
-        String title = "asdf";
+        String title = "unknown";
         String getTitle = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getTitle);
         statement.setInt(1, id);
@@ -122,7 +122,7 @@ public class Database {
     }
 
     public String getArtist(int id) throws SQLException {
-        String artist = "asdf";
+        String artist = "unknown";
 
         String getArtist = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getArtist);
@@ -136,7 +136,7 @@ public class Database {
     }
 
     public String getAlbum(int id) throws SQLException {
-        String album = "asdf";
+        String album = "unknown";
 
         String getAlbum = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getAlbum);
@@ -150,7 +150,7 @@ public class Database {
     }
 
     public String getYear(int id) throws SQLException {
-        String year = "asdf";
+        String year = "unknown";
 
         String getYear = "select * from songInfo where SONGID = ?";
         PreparedStatement statement = conn.prepareStatement(getYear);

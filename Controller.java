@@ -108,7 +108,7 @@ public class Controller {
         System.out.println(appView.getCurrentRowCount());
         appModel.addSong(songFile, fileName, appView.getCurrentRowCount());
         System.out.println("In db song count is now " + getSongCount());
-        appView.updateTableView();
+       // appView.updateTableView();
     }
     
     /**
@@ -117,7 +117,7 @@ public class Controller {
     public void deleteSong(int songID) throws SQLException {
         
         appModel.deleteSong( songID );
-        appView.updateTableView();
+        //appView.updateTableView();
     }
 
     class KeyboardListener implements KeyListener {
@@ -156,6 +156,7 @@ public class Controller {
                         System.out.println("Play button was pressed");
                          {
                             try {
+                                appView.updateSelectedSong(); 
                                 playSong(appView.getCurrentlySelectedRow());
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -303,6 +304,7 @@ public class Controller {
                         System.out.println("Play button was pressed");
                          {
                             try {
+                                appView.updateSelectedSong(); 
                                 playSong(appView.getCurrentlySelectedRow());
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
