@@ -44,6 +44,7 @@ public class Controller {
     
     public boolean hasSongStarted;
     public boolean isSongPlaying;
+    public int currentRowPlaying;
             
     /**
      * Construct the instance variables.
@@ -70,6 +71,7 @@ public class Controller {
         if (!hasSongStarted) {
             appModel.loadSong(appModel.getSongFile(songID));
         }
+        currentRowPlaying = songID;
         appModel.playSong();
         //commented out the following line, seems to interfere with play/pause. Doesn't seem to affect functionality of program
         //appModel.loadSong(appModel.songFileList.get(appModel.playSongID));
@@ -94,7 +96,7 @@ public class Controller {
     /**
      *
      */
-    public void previousSong(int songID) throws BasicPlayerException, SQLException {
+    public void previousSong(int songID) throws BasicPlayerException, SQLException {      
         appView.updatePreviousButtonUI();
         appModel.previousSong(songID);
 
@@ -186,7 +188,8 @@ public class Controller {
                          
                             try {
                                 appView.updateSelectedSong(); 
-                                playSong(appView.getCurrentlySelectedRow());
+                                currentRowPlaying = appView.getCurrentlySelectedRow();
+                                playSong(currentRowPlaying);
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SQLException ex) {
@@ -207,8 +210,8 @@ public class Controller {
                         System.out.println("Previous button was pressed");
                          {
                             try {
-                                appView.updateSelectedSong();
-                                previousSong( appView.getCurrentlySelectedRow() );
+                                
+                                previousSong( currentRowPlaying );
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SQLException ex) {
@@ -220,8 +223,7 @@ public class Controller {
                         System.out.println("Skip button was pressed");
                          {
                             try {
-                                appView.updateSelectedSong();
-                                skipSong( appView.getCurrentlySelectedRow() );
+                                skipSong( currentRowPlaying );
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SQLException ex) {
@@ -389,8 +391,7 @@ public class Controller {
                         System.out.println("Skip button was pressed");
                          {
                             try {
-                                appView.updateSelectedSong();
-                                skipSong( appView.getCurrentlySelectedRow() );
+                                skipSong( currentRowPlaying );
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SQLException ex) {
@@ -402,8 +403,7 @@ public class Controller {
                         System.out.println("Previous button was pressed");
                         {
                             try {
-                                appView.updateSelectedSong();
-                                previousSong( appView.getCurrentlySelectedRow() );
+                                previousSong( currentRowPlaying );
                             } catch (BasicPlayerException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             } catch (SQLException ex) {

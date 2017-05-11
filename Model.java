@@ -177,6 +177,7 @@ public class Model {
         } else{
             songID++;
         }
+        appController.currentRowPlaying = songID;
         
         bp.stop();
         appController.hasSongStarted = false;
@@ -185,7 +186,7 @@ public class Model {
         playSong();
         appController.hasSongStarted = true;
     }
-
+    
     /**
      *
      */
@@ -195,6 +196,7 @@ public class Model {
         }else if (songID == 0){
             songID = appController.getSongCount()-1;
         }
+        appController.currentRowPlaying = songID;
         bp.stop();
         appController.hasSongStarted = false;
         
