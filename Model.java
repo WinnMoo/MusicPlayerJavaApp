@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class Model {
 
     protected Database appDB;
+    private Controller appController;
     private BasicPlayer bp;
     private BasicController bc;
     private double volumeLevel = .5;
@@ -30,10 +31,10 @@ public class Model {
     
     ArrayList<Mp3File> songsDisplayData = new ArrayList<Mp3File>();
     ArrayList<File> songFileList = new ArrayList<File>();
-    private boolean songHasStarted = false;
-    private boolean isSongPlaying = false;
+//    public boolean hasSongStarted = false;
+//    private boolean isSongPlaying = false;
 
-    public Model() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
+    public Model(Controller appController) throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
         
 //        playSongID = 0;
 //        songID = 0;
@@ -51,7 +52,7 @@ public class Model {
 
 //        songFileList.add(songFile1);
 //        songFileList.add(songFile2);
-
+        this.appController = appController;
         bp = new BasicPlayer();
 
         try {
@@ -98,15 +99,31 @@ public class Model {
      *
      */
     public void addSong(Mp3File songToBeAdded, String songFileName, int songID) throws SQLException {
-        ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();        
-        int idNum = songID;
-        String title = id3v1Tag.getTitle();
-        String artist = id3v1Tag.getArtist();
-        String album = id3v1Tag.getAlbum();
-        String year = id3v1Tag.getYear();
-        int genre = id3v1Tag.getGenre();
-        appDB.addSong(idNum, title, artist, album, year, genre, songFileName);
-
+        
+        if (songToBeAdded.hasId3v1Tag()) {
+            ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();        
+            String title = id3v1Tag.getTitle();
+            String artist = id3v1Tag.getArtist();
+            String album = id3v1Tag.getAlbum();
+            String year = id3v1Tag.getYear();
+            int genre = id3v1Tag.getGenre();
+            appDB.addSong(songID, title, artist, album, year, genre, songFileName);
+            
+        } else if (songToBeAdded.hasId3v2Tag()) {
+            
+            ID3v2 id3v2Tag = songToBeAdded.getId3v2Tag();  
+            String title = id3v2Tag.getTitle();
+            
+            if (title == null) {
+                id3v2Tag.setTitle(songFileName);
+                title = songFileName;
+            }
+            String artist = id3v2Tag.getArtist();
+            String album = id3v2Tag.getAlbum();
+            String year = id3v2Tag.getYear();
+            int genre = id3v2Tag.getGenre();
+            appDB.addSong(songID, title, artist, album, year, genre, songFileName);
+        }
     }
 
     /**
@@ -117,6 +134,12 @@ public class Model {
         bp.open(songToBePlayed);
     }
     
+    /**
+     * 
+     * @param songID
+     * @return
+     * @throws SQLException 
+     */
     public File getSongFile(int songID) throws SQLException {
         String currentDirectory;
         currentDirectory = System.getProperty("user.dir");
@@ -131,24 +154,39 @@ public class Model {
         return fileToLoad;
     }
 
+    /**
+     * 
+     * @throws BasicPlayerException 
+     */
     public void playSong() throws BasicPlayerException {
-        if (songHasStarted == false) {
-            songHasStarted = true;
+        if (!appController.isSongPlaying && appController.hasSongStarted) {
+            bp.resume();
+            appController.isSongPlaying = true;
+        }
+        
+        if (appController.hasSongStarted == false) {
+            appController.hasSongStarted = true;
+            appController.isSongPlaying = true;
             bp.play();
             System.out.println("Play was called");
-        } else {
-            if (!isSongPlaying) {
-                System.out.println("Resuming Playback");
-                bp.resume();
-                System.out.println("Playback resumed");
-                isSongPlaying = true;
-
-            } else {
-                System.out.println("Pausing Playback");
-                bp.pause();
-                System.out.println("Playback Paused");
-                isSongPlaying = false;
-            }
+        }
+        
+        
+//        else {
+//            if (!isSongPlaying) {
+//                bp.resume();
+//                isSongPlaying = true;
+//            } else {
+//                bp.pause();
+//                isSongPlaying = false;
+//            }
+//        }
+    }
+    
+    public void pauseSong() throws BasicPlayerException {
+        if (appController.isSongPlaying) {
+            bp.pause();
+            appController.isSongPlaying = false;
         }
     }
 
@@ -158,8 +196,8 @@ public class Model {
      */
     public void stopSong() throws BasicPlayerException {
         bp.stop();
-        songHasStarted = false;
-        isSongPlaying = false;
+        appController.hasSongStarted = false;
+        appController.isSongPlaying = false;
     }
 
     /**
@@ -173,12 +211,12 @@ public class Model {
         }
         
         bp.stop();
-        songHasStarted = false;
+        appController.hasSongStarted = false;
         
         System.out.println(songFileList.get(playSongID));
         bp.open(songFileList.get(playSongID));
         playSong();
-        songHasStarted = true;
+        appController.hasSongStarted = true;
     }
 
     /**
@@ -191,7 +229,7 @@ public class Model {
             playSongID = songFileList.size() - 1;
         }
         bp.stop();
-        songHasStarted = false;
+        appController.hasSongStarted = false;
         
         System.out.println(songFileList.get(playSongID));
         bp.open(songFileList.get(playSongID));

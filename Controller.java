@@ -41,13 +41,19 @@ public class Controller {
 
     protected Model appModel;
     private View appView;
-
+    
+    public boolean hasSongStarted;
+    public boolean isSongPlaying;
+            
     /**
      * Construct the instance variables.
      */
     public Controller() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
-        appModel = new Model(); // db is initalized in Model's class constructor
+        appModel = new Model(this); // db is initalized in Model's class constructor
         appView = new View(this);
+        
+        hasSongStarted = false;
+        isSongPlaying = false;
     }
 
     /**
@@ -62,12 +68,20 @@ public class Controller {
      *
      */
     public void playSong(int songID) throws BasicPlayerException, SQLException {
-        appView.updatePlayButtonUI();
-        appModel.loadSong(appModel.getSongFile(songID));
+        if (!hasSongStarted) {
+            appModel.loadSong(appModel.getSongFile(songID));
+        }
         appModel.playSong();
         //commented out the following line, seems to interfere with play/pause. Doesn't seem to affect functionality of program
         //appModel.loadSong(appModel.songFileList.get(appModel.playSongID));
-        appModel.playSong();
+        isSongPlaying = true;
+        appView.updatePlayButtonUI();
+    }
+    
+    public void pauseSong() throws BasicPlayerException {
+        appModel.pauseSong();
+        isSongPlaying = false;
+        appView.updatePlayButtonUI();
     }
     
     /**
@@ -108,7 +122,8 @@ public class Controller {
         System.out.println(appView.getCurrentRowCount());
         appModel.addSong(songFile, fileName, appView.getCurrentRowCount());
         System.out.println("In db song count is now " + getSongCount());
-       // appView.updateTableView();
+        appView.updateTableView();
+       
     }
     
     /**
@@ -117,7 +132,7 @@ public class Controller {
     public void deleteSong(int songID) throws SQLException {
         
         appModel.deleteSong( songID );
-        //appView.updateTableView();
+        appView.updateTableView();
     }
 
     class KeyboardListener implements KeyListener {
@@ -153,8 +168,10 @@ public class Controller {
                 switch (action) {
                     case 0:
 
-                        System.out.println("Play button was pressed");
-                         {
+                        System.out.println("Play/Pause button was pressed");
+                        
+                        if (!isSongPlaying) {
+                         
                             try {
                                 appView.updateSelectedSong(); 
                                 playSong(appView.getCurrentlySelectedRow());
@@ -163,7 +180,16 @@ public class Controller {
                             } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        
+                        } 
+                        else {
+                            try {
+                                pauseSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
+                        
                         break;
                     case 1:
                         System.out.println("Previous button was pressed");

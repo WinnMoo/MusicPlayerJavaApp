@@ -48,7 +48,6 @@ public class View {
 
     private MyJSlider volumeSlider;
 
-    private boolean songIsPlaying = false;
     // playButton 'toggles' from playing or pause, so image needs to change based on state of songIsPlaying
     protected MyJButton playButton;
     private MyJButton previousSongButton;
@@ -97,8 +96,6 @@ public class View {
         bottomMenuPanel = new JPanel(new BorderLayout());
         bottomButtonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
-        songIsPlaying = false;
-
         // instantiate inner class of MyJButton
         playButton = appController.new MyJButton("Play");
         previousSongButton = appController.new MyJButton("Previous");
@@ -107,20 +104,10 @@ public class View {
         volumeUpButton = appController.new MyJButton("Increase Vol");
         volumeDownButton = appController.new MyJButton("Decrease Vol");
         
-
+        
         volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
         
         updateTableView();
-
-        MouseListener mouseListener = new MouseAdapter() {
-            public void mousePressed(MouseEvent e) {
-               int currentSelectedRow = table.getSelectedRow();
-               System.out.println("Selected index = " + currentSelectedRow);
-            }
-        };
-        //assign the listener
-        table.addMouseListener(mouseListener);
-        scrollPane = new JScrollPane(table);
 
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
@@ -236,6 +223,16 @@ public class View {
         }
         
         table = new JTable(data, columns);
+        
+        MouseListener mouseListener = new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+               int currentSelectedRow = table.getSelectedRow();
+               System.out.println("Selected index = " + currentSelectedRow);
+            }
+        };
+        //assign the listener
+        table.addMouseListener(mouseListener);
+        scrollPane = new JScrollPane(table);
     }
     
     /**
@@ -252,7 +249,7 @@ public class View {
      * Shows the corresponding time for the song on the top panel.
      */
     public void updatePlayButtonUI() {
-        if (songIsPlaying) {
+        if (appController.isSongPlaying) {
             playButton.setText("Pause");
         } else {
             playButton.setText("Play");
