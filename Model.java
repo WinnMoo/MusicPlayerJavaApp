@@ -144,7 +144,7 @@ public class Model {
             stopSong();
         }
         loadSong(filename);
-        bp.play();
+        playSong();
     }
     
     /**

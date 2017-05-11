@@ -337,20 +337,20 @@ public class Controller {
                         if (md.ok) {
                             System.out.println("Filename is " + md.filename);
                             
-                            String currentDirectory = System.getProperty("user.dir");
+                            //String currentDirectory = System.getProperty("user.dir");
         
-                            String[] fileName = md.filename.split("/");
-                            currentDirectory += "/src/musicplayerapp/" + fileName[fileName.length-1];
+                            //String[] fileName = md.filename.split("/");
+                            //currentDirectory += "/src/musicplayerapp/" + fileName[fileName.length-1];
                             
-                            System.out.println("**** THAT PATH IS " + currentDirectory);
-                            File fileToLoad = new File(currentDirectory);
+                           // System.out.println("**** THAT PATH IS " + currentDirectory);
+                            //File fileToLoad = new File(currentDirectory);
                             
-                            try {
-                                appModel.playExternalSong(fileToLoad);
-                                System.out.println("**** THAT PATH IS " + currentDirectory);
-                            } catch (BasicPlayerException ex) {
-                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                            //try {
+                              //  appModel.playExternalSong(fileToLoad);
+                                //System.out.println("**** THAT PATH IS " + currentDirectory);
+                            //} catch (BasicPlayerException ex) {
+                              //  Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            //}
                             
                         } else {
                             System.out.println("user clicked cancel");
@@ -361,7 +361,10 @@ public class Controller {
                         System.exit(0);
                         break;
                     case 4:
-                        System.out.println("Play button was pressed");
+
+                        System.out.println("Play/Pause button was pressed");
+                        
+                        if (!isSongPlaying) {
                          
                             try {
                                 appView.updateSelectedSong(); 
@@ -371,6 +374,15 @@ public class Controller {
                             } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                        
+                        } 
+                        else {
+                            try {
+                                pauseSong();
+                            } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
                         
                         break;
                     case 5:
@@ -492,7 +504,9 @@ public class Controller {
                 System.out.println("filename");
                 ok = true;
                 songToBePlayed = chooser.getSelectedFile();
-
+                appModel.loadSong(songToBePlayed);
+                appModel.playSong();
+                
                 setVisible(false);
             } else {
                 ok = false;

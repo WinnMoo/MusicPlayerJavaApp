@@ -167,15 +167,15 @@ public class View {
         increaseVol.setActionCommand("8");
         decreaseVol.setActionCommand("9");
         
-        KeyStroke spacebar = KeyStroke.getKeyStroke(' ');
+        KeyStroke spacebar = KeyStroke.getKeyStroke(32, 2);
         playItem.setAccelerator(spacebar);
-        KeyStroke volUp = KeyStroke.getKeyStroke(73, 17);
+        KeyStroke volUp = KeyStroke.getKeyStroke(73, 2);
         increaseVol.setAccelerator(volUp);
-        KeyStroke volDown = KeyStroke.getKeyStroke(68, 17);
+        KeyStroke volDown = KeyStroke.getKeyStroke(68, 2);
         decreaseVol.setAccelerator(volDown);
-        KeyStroke skip = KeyStroke.getKeyStroke(39, 17);
+        KeyStroke skip = KeyStroke.getKeyStroke(39, 2);
         nextItem.setAccelerator(skip);
-        KeyStroke previous = KeyStroke.getKeyStroke(37, 17);
+        KeyStroke previous = KeyStroke.getKeyStroke(37, 2);
         previousItem.setAccelerator(previous);
 
         
