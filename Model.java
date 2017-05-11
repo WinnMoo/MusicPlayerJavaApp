@@ -29,29 +29,8 @@ public class Model {
     int playSongID; //id for the basicplayer to keep track of which song is playing
     int songID; //id for the database
     
-    ArrayList<Mp3File> songsDisplayData = new ArrayList<Mp3File>();
-    ArrayList<File> songFileList = new ArrayList<File>();
-//    public boolean hasSongStarted = false;
-//    private boolean isSongPlaying = false;
-
     public Model(Controller appController) throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
         
-//        playSongID = 0;
-//        songID = 0;
-        
-//        this.song1 = new Mp3File("fur-elise.mp3");
-//        this.song2 = new Mp3File("mpthreetest.mp3");
-//        
-//        songsDisplayData.add(song1);
-//        songsDisplayData.add(song2);
-//        
-//        this.songFile1 = new File("fur-elise.mp3");
-//        this.songFile2 = new File("mpthreetest.mp3");
-
-       // getSongDataToDisplay();
-
-//        songFileList.add(songFile1);
-//        songFileList.add(songFile2);
         this.appController = appController;
         bp = new BasicPlayer();
 
@@ -66,22 +45,6 @@ public class Model {
         }
 //      appDB.dropTables();
 //      appDB.createTables();
-        //populateDatabase();
-    }
-
-    /**
-     * Function to populate the database. Only called once in the beginning. Any
-     * song that needs to be added will use the addSong function
-     *
-     * @throws SQLException
-     */
-    public void populateDatabase() throws SQLException {
-        for (int i = 0; i < songsDisplayData.size(); i++) {
-            songID++;
-            if (songsDisplayData.get(i).hasId3v1Tag()) {
-               // addSong(songsDisplayData.get(i), songID);       
-            }
-        }
     }
 
     /**
@@ -170,19 +133,24 @@ public class Model {
             bp.play();
             System.out.println("Play was called");
         }
-        
-        
-//        else {
-//            if (!isSongPlaying) {
-//                bp.resume();
-//                isSongPlaying = true;
-//            } else {
-//                bp.pause();
-//                isSongPlaying = false;
-//            }
-//        }
     }
     
+    /**
+     * 
+     * @param filename 
+     */
+    public void playExternalSong(File filename) throws BasicPlayerException {
+        if (appController.isSongPlaying) {
+            stopSong();
+        }
+        loadSong(filename);
+        bp.open(filename);
+    }
+    
+    /**
+     * 
+     * @throws BasicPlayerException 
+     */
     public void pauseSong() throws BasicPlayerException {
         if (appController.isSongPlaying) {
             bp.pause();
@@ -203,18 +171,17 @@ public class Model {
     /**
      *
      */
-    public void skipSong() throws BasicPlayerException {
-        if(playSongID == (songFileList.size() - 1)){
-            playSongID = 0;
+    public void skipSong(int songID) throws BasicPlayerException, SQLException {
+        if(songID == appController.getSongCount()-1){
+            songID = 0; // wraps around to the front of the table view
         } else{
-            playSongID++;
+            songID++;
         }
         
         bp.stop();
         appController.hasSongStarted = false;
         
-        System.out.println(songFileList.get(playSongID));
-        bp.open(songFileList.get(playSongID));
+        bp.open( getSongFile(songID) );
         playSong();
         appController.hasSongStarted = true;
     }
@@ -222,17 +189,16 @@ public class Model {
     /**
      *
      */
-    public void previousSong() throws BasicPlayerException {
-        if(playSongID > 0){
-        playSongID--;
-        }else if(playSongID == 0){
-            playSongID = songFileList.size() - 1;
+    public void previousSong(int songID) throws BasicPlayerException, SQLException {
+        if(songID > 0){
+            songID--;
+        }else if (songID == 0){
+            songID = appController.getSongCount()-1;
         }
         bp.stop();
         appController.hasSongStarted = false;
         
-        System.out.println(songFileList.get(playSongID));
-        bp.open(songFileList.get(playSongID));
+        bp.open( getSongFile(songID) );
         playSong();
     }
 

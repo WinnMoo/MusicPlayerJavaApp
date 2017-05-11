@@ -61,7 +61,6 @@ public class Controller {
      */
     public void startApp() throws BasicPlayerException {
         appView.displayUI();
-        appModel.loadSong(appModel.songFileList.get(0));
     }
     
     /**
@@ -78,6 +77,14 @@ public class Controller {
         appView.updatePlayButtonUI();
     }
     
+    /**
+     * 
+     * @param filename
+     */
+    public void playExternalSong(File filename) throws BasicPlayerException {
+        appModel.playExternalSong(filename);
+    }
+    
     public void pauseSong() throws BasicPlayerException {
         appModel.pauseSong();
         isSongPlaying = false;
@@ -87,18 +94,18 @@ public class Controller {
     /**
      *
      */
-    public void previousSong() throws BasicPlayerException {
+    public void previousSong(int songID) throws BasicPlayerException, SQLException {
         appView.updatePreviousButtonUI();
-        appModel.previousSong();
+        appModel.previousSong(songID);
 
     }
     
     /**
      *
      */
-    public void skipSong() throws BasicPlayerException {
+    public void skipSong(int songID) throws BasicPlayerException, SQLException {
         appView.updateSkipButtonUI();
-        appModel.skipSong();
+        appModel.skipSong(songID);
     }
     
     /**
@@ -109,6 +116,11 @@ public class Controller {
         appModel.stopSong();
     }
     
+    /**
+     * 
+     * @return
+     * @throws SQLException 
+     */
     public int getSongCount() throws SQLException {
         return appModel.getSongCount();
     }
@@ -195,8 +207,11 @@ public class Controller {
                         System.out.println("Previous button was pressed");
                          {
                             try {
-                                previousSong();
+                                appView.updateSelectedSong();
+                                previousSong( appView.getCurrentlySelectedRow() );
                             } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -205,8 +220,11 @@ public class Controller {
                         System.out.println("Skip button was pressed");
                          {
                             try {
-                                skipSong();
+                                appView.updateSelectedSong();
+                                skipSong( appView.getCurrentlySelectedRow() );
                             } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -318,6 +336,7 @@ public class Controller {
                         md.setVisible(true);
                         if (md.ok) {
                             System.out.println("Filename is " + md.filename);
+                            System.out.println("PLAYING not in library");
                         } else {
                             System.out.println("user clicked cancel");
                         }
@@ -328,7 +347,7 @@ public class Controller {
                         break;
                     case 4:
                         System.out.println("Play button was pressed");
-                         {
+                         
                             try {
                                 appView.updateSelectedSong(); 
                                 playSong(appView.getCurrentlySelectedRow());
@@ -337,14 +356,17 @@ public class Controller {
                             } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        }
+                        
                         break;
                     case 5:
                         System.out.println("Skip button was pressed");
                          {
                             try {
-                                skipSong();
+                                appView.updateSelectedSong();
+                                skipSong( appView.getCurrentlySelectedRow() );
                             } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -353,8 +375,11 @@ public class Controller {
                         System.out.println("Previous button was pressed");
                         {
                             try {
-                                previousSong();
+                                appView.updateSelectedSong();
+                                previousSong( appView.getCurrentlySelectedRow() );
                             } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -405,7 +430,7 @@ public class Controller {
             public void stateChanged(ChangeEvent e) {
                 JSlider source = (JSlider) e.getSource();
             }
-
+            
             @Override
             public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -452,9 +477,6 @@ public class Controller {
                 System.out.println("filename");
                 ok = true;
                 songToBePlayed = chooser.getSelectedFile();
-                
-//                appModel.loadSong(songToBePlayed);
-//                appModel.playSong();
 
                 setVisible(false);
             } else {
