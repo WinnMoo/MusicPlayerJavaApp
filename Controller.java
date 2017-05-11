@@ -70,6 +70,10 @@ public class Controller {
     public void playSong(int songID) throws BasicPlayerException, SQLException {
         if (!hasSongStarted) {
             appModel.loadSong(appModel.getSongFile(songID));
+        } else if (currentRowPlaying != songID) {
+            // current song is already playing that's different from currently selected song
+            appModel.stopSong();
+            appModel.loadSong(appModel.getSongFile(songID));
         }
         currentRowPlaying = songID;
         appModel.playSong();
@@ -136,6 +140,8 @@ public class Controller {
         System.out.println(appView.getCurrentRowCount());
         appModel.addSong(songFile, fileName, appView.getCurrentRowCount());
         System.out.println("In db song count is now " + getSongCount());
+        //appView.tableModel.setRowCount(0);
+       // appView.tableModel.removeRow(0);
         appView.updateTableView();
        
     }
@@ -146,6 +152,8 @@ public class Controller {
     public void deleteSong(int songID) throws SQLException {
         
         appModel.deleteSong( songID );
+        //appView.tableModel.setRowCount(0);
+        appView.tableModel.removeRow(songID);
         appView.updateTableView();
     }
 

@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import musicplayerapp.Controller.MyJButton;
 import musicplayerapp.Controller.MyJSlider;
 
@@ -57,7 +58,8 @@ public class View {
     private MyJButton volumeUpButton;
     private MyJButton volumeDownButton;
 
-    private JTable table;
+    public DefaultTableModel tableModel;
+    protected JTable table;
     private Object[][] data;
     private JScrollPane scrollPane;
     private int rowsAmount;
@@ -108,6 +110,7 @@ public class View {
         volumeSlider = appController.new MyJSlider(JSlider.HORIZONTAL, 0, 10, 5);
         
         updateTableView();
+        
 
         FRAME_WIDTH = 800;
         FRAME_HEIGHT = 600;
@@ -195,6 +198,7 @@ public class View {
         setCurrentRowCount(); // updates the rowsAmount
         data = new Object[rowsAmount][5];
         // appController.appModel.songsDisplayData.size()
+        System.out.println("The row count is " + rowsAmount);
         
         for (int i = 0; i < rowsAmount; i++){
             for (int j = 0; j < 5; j++) {
@@ -219,10 +223,13 @@ public class View {
                     int genre = appController.appModel.appDB.getGenre(i);
                     data[i][j] = genre;
                 }
+                System.out.println(data[i][j]);
             }
         }
         
+        tableModel = new DefaultTableModel(data,columns);
         table = new JTable(data, columns);
+        table.setModel(tableModel);
         
         MouseListener mouseListener = new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
