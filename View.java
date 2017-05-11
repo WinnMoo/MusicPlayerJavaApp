@@ -62,6 +62,7 @@ public class View {
     private Object[][] data;
     private JScrollPane scrollPane;
     private int rowsAmount;
+    private int currentlySelectedRow;
 
     private final int FRAME_WIDTH;
     private final int FRAME_HEIGHT;
@@ -204,9 +205,10 @@ public class View {
      */
     public void updateTableView() throws SQLException {
         String[] columns = {"Title", "Artist", "Album", "Year", "Genre"};
-        rowsAmount = appController.getSongCount();
+        setCurrentRowCount(); // updates the rowsAmount
         data = new Object[rowsAmount][5];
         // appController.appModel.songsDisplayData.size()
+        
         for (int i = 0; i < rowsAmount; i++){
             for (int j = 0; j < 5; j++) {
                 if (j == 0) {
@@ -235,7 +237,7 @@ public class View {
         table = new JTable(data, columns);
 
     }
-
+    
     //updating text doesn't work
     /**
      * Updates play button UI as to show the image for pause for the button.
@@ -275,6 +277,36 @@ public class View {
      */
     public void producePopupMenu() {
 
+    }
+    
+    /**
+     * 
+     * @return 
+     */
+    public int getCurrentRowCount() {
+        return rowsAmount;
+    }
+    
+    /**
+     * 
+     * @throws SQLException 
+     */
+    public void setCurrentRowCount() throws SQLException {
+        rowsAmount = appController.getSongCount();
+    }
+    
+    /**
+     * @return currentlySelectedRow, integer
+     */
+    public int getCurrentlySelectedRow() {
+        return currentlySelectedRow;
+    }
+    
+    /**
+     * 
+     */
+    public void updateSelectedSong() {
+        currentlySelectedRow = table.getSelectedRow();
     }
 
 }

@@ -57,17 +57,19 @@ public class Controller {
         appView.displayUI();
         appModel.loadSong(appModel.songFileList.get(0));
     }
-
+    
     /**
      *
      */
-    public void playSong() throws BasicPlayerException {
+    public void playSong(int songID) throws BasicPlayerException, SQLException {
         appView.updatePlayButtonUI();
+        appModel.loadSong(appModel.getSongFile(songID));
+        appModel.playSong();
         //commented out the following line, seems to interfere with play/pause. Doesn't seem to affect functionality of program
         //appModel.loadSong(appModel.songFileList.get(appModel.playSongID));
         appModel.playSong();
     }
-
+    
     /**
      *
      */
@@ -76,7 +78,7 @@ public class Controller {
         appModel.previousSong();
 
     }
-
+    
     /**
      *
      */
@@ -84,7 +86,7 @@ public class Controller {
         appView.updateSkipButtonUI();
         appModel.skipSong();
     }
-
+    
     /**
      *
      */
@@ -100,16 +102,21 @@ public class Controller {
     /**
      * 
      */
-    public void addSong(Mp3File songFile) throws SQLException {
-        //appModel.addSong();
+    public void addSong(Mp3File songFile, String fileName) throws SQLException {
+        System.out.println(songFile + " is the mp3 file name to play");
+        System.out.println(fileName + " is the filename to save in the db");
+        System.out.println(appView.getCurrentRowCount());
+        appModel.addSong(songFile, fileName, appView.getCurrentRowCount());
+        System.out.println("In db song count is now " + getSongCount());
         appView.updateTableView();
     }
     
     /**
      * 
      */
-    public void deleteSong() throws SQLException {
-        // appModel.deleteSong()
+    public void deleteSong(int songID) throws SQLException {
+        
+        appModel.deleteSong( songID );
         appView.updateTableView();
     }
 
@@ -149,8 +156,10 @@ public class Controller {
                         System.out.println("Play button was pressed");
                          {
                             try {
-                                playSong();
+                                playSong(appView.getCurrentlySelectedRow());
                             } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -233,15 +242,13 @@ public class Controller {
 
                 int action = Integer.parseInt(event.getActionCommand());
                 switch (action) {
-                    //needs work
                     case 0:
                         System.out.println("Adding song not in library");
-                        // insert into db
-                        // get table data back and update the view
+                       
                         MyDialog addSongDialog = new MyDialog();
                         addSongDialog.setVisible(true);
                         if (addSongDialog.ok) {
-                            System.out.println("Filename is " + addSongDialog.filename);
+                            System.out.println("Filename is " + addSongDialog.filename + "!!");
                         } else {
                             System.out.println("user clicked cancel");
                         }
@@ -250,8 +257,10 @@ public class Controller {
                         String lastStrFileName = fileToAdd[fileToAdd.length-1];
                         
                         try {
-                            Mp3File mp3fileToAdd = new Mp3File(lastStrFileName);                   
-                            addSong(mp3fileToAdd);
+                            Mp3File mp3fileToAdd = new Mp3File(lastStrFileName);    
+                            System.out.println(lastStrFileName);
+                            addSong(mp3fileToAdd, lastStrFileName);
+                            System.out.println("SUCCESS *****************");
   
                         } catch (IOException ex) {
                             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
@@ -259,14 +268,22 @@ public class Controller {
                             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (InvalidDataException ex) {
                             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (SQLException ex) {
+                        } catch (SQLException ex) { 
                             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
                         break;
                     case 1:
                         System.out.println("Deleting song from library");
-
+                        appView.updateSelectedSong();
+                        int selectedRow = appView.getCurrentlySelectedRow();
+                        
+                        try {
+                            deleteSong(selectedRow);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                
                         break;
                     case 2:
                         System.out.println("Playing song not in library");
@@ -286,8 +303,10 @@ public class Controller {
                         System.out.println("Play button was pressed");
                          {
                             try {
-                                playSong();
+                                playSong(appView.getCurrentlySelectedRow());
                             } catch (BasicPlayerException ex) {
+                                Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
                                 Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
@@ -387,7 +406,6 @@ public class Controller {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         getFile(e);
-                        System.out.println("asdf");
                     } catch (BasicPlayerException ex) {
                         Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -406,9 +424,9 @@ public class Controller {
                 System.out.println("filename");
                 ok = true;
                 songToBePlayed = chooser.getSelectedFile();
-
-                appModel.loadSong(songToBePlayed);
-                appModel.playSong();
+                
+//                appModel.loadSong(songToBePlayed);
+//                appModel.playSong();
 
                 setVisible(false);
             } else {
@@ -435,7 +453,6 @@ public class Controller {
                 public void actionPerformed(ActionEvent e) {
                     try {
                         getFile(e);
-                        System.out.println("asdf");
                     } catch (BasicPlayerException ex) {
                         Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (IOException ex) {
@@ -462,13 +479,13 @@ public class Controller {
                 System.out.println("filename");
                 ok = true;
                 songToAdd = chooser.getSelectedFile();
-
-                appModel.songFileList.add(songToAdd); //adds the song to the playlist
+                
+                //appModel.songFileList.add(songToAdd); //adds the song to the playlist
                 
                 Mp3File songToAddTags = new Mp3File(songToAdd.getName());
-                appModel.songID++;
-                appModel.addSong(songToAddTags, appModel.songID); //adds the song to the database
-
+                //appModel.songID++;
+                //appModel.addSong(songToAddTags, appModel.songID); //adds the song to the database
+                
                 //needs code to update jtable with the new song added
                 
                 setVisible(false);
@@ -494,7 +511,5 @@ public class Controller {
             this.addMouseListener(mL);
             
         }
-        
-        
     }
 }

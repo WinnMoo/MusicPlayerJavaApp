@@ -30,13 +30,13 @@ public class Model {
     
     ArrayList<Mp3File> songsDisplayData = new ArrayList<Mp3File>();
     ArrayList<File> songFileList = new ArrayList<File>();
-    private boolean startSong = false;
-    private boolean isSongPlaying = true;
+    private boolean songHasStarted = false;
+    private boolean isSongPlaying = false;
 
     public Model() throws IOException, UnsupportedTagException, InvalidDataException, SQLException {
         
-        playSongID = 0;
-        songID = 0;
+//        playSongID = 0;
+//        songID = 0;
         
 //        this.song1 = new Mp3File("fur-elise.mp3");
 //        this.song2 = new Mp3File("mpthreetest.mp3");
@@ -63,7 +63,8 @@ public class Model {
         } catch (Exception ex) {
             Logger.getLogger(Model.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //appDB.createTables();
+//      appDB.dropTables();
+//      appDB.createTables();
         //populateDatabase();
     }
 
@@ -77,7 +78,7 @@ public class Model {
         for (int i = 0; i < songsDisplayData.size(); i++) {
             songID++;
             if (songsDisplayData.get(i).hasId3v1Tag()) {
-                addSong(songsDisplayData.get(i), songID);       
+               // addSong(songsDisplayData.get(i), songID);       
             }
         }
     }
@@ -96,7 +97,8 @@ public class Model {
     /**
      *
      */
-    public void addSong(Mp3File songToBeAdded, int songID) throws SQLException {
+    public void addSong(Mp3File songToBeAdded, String songFileName, int songID) throws SQLException {
+        
         ID3v1 id3v1Tag = songToBeAdded.getId3v1Tag();
         int idNum = songID;
         String title = id3v1Tag.getTitle();
@@ -104,7 +106,7 @@ public class Model {
         String album = id3v1Tag.getAlbum();
         String year = id3v1Tag.getYear();
         int genre = id3v1Tag.getGenre();
-        appDB.addSong(idNum, title, artist, album, year, genre);
+        appDB.addSong(idNum, title, artist, album, year, genre, songFileName);
 
     }
 
@@ -115,10 +117,24 @@ public class Model {
     public void loadSong(File songToBePlayed) throws BasicPlayerException {
         bp.open(songToBePlayed);
     }
+    
+    public File getSongFile(int songID) throws SQLException {
+        String currentDirectory;
+        currentDirectory = System.getProperty("user.dir");
+	System.out.println("Current working directory : " + currentDirectory);
+        
+        String fileName = appDB.getSongFile(songID);
+        System.out.println("the filename is " + fileName);
+        currentDirectory += "/src/musicplayerapp/" + fileName;
+        
+        System.out.println("that path is " + currentDirectory);
+        File fileToLoad = new File(currentDirectory);
+        return fileToLoad;
+    }
 
     public void playSong() throws BasicPlayerException {
-        if (startSong == false) {
-            startSong = true;
+        if (songHasStarted == false) {
+            songHasStarted = true;
             bp.play();
             System.out.println("Play was called");
         } else {
@@ -143,7 +159,8 @@ public class Model {
      */
     public void stopSong() throws BasicPlayerException {
         bp.stop();
-        startSong = false;
+        songHasStarted = false;
+        isSongPlaying = false;
     }
 
     /**
@@ -157,12 +174,12 @@ public class Model {
         }
         
         bp.stop();
-        startSong = false;
+        songHasStarted = false;
         
         System.out.println(songFileList.get(playSongID));
         bp.open(songFileList.get(playSongID));
         playSong();
-        startSong = true;
+        songHasStarted = true;
     }
 
     /**
@@ -175,26 +192,38 @@ public class Model {
             playSongID = songFileList.size() - 1;
         }
         bp.stop();
-        startSong = false;
+        songHasStarted = false;
         
         System.out.println(songFileList.get(playSongID));
         bp.open(songFileList.get(playSongID));
         playSong();
-        startSong = true;
     }
 
     //volume adjustment function to be added here
     //Function to adjust volume: bp.setGain(double gain);
+    /**
+     * 
+     * @throws BasicPlayerException 
+     */
     public void volumeUp() throws BasicPlayerException {
         volumeLevel = volumeLevel + .1;
         bp.setGain(volumeLevel);
     }
 
+    /**
+     * 
+     * @throws BasicPlayerException 
+     */
     public void volumeDown() throws BasicPlayerException {
         volumeLevel = volumeLevel - .1;
         bp.setGain(volumeLevel);
     }
     
+    /**
+     * 
+     * @return
+     * @throws SQLException 
+     */
     public int getSongCount() throws SQLException {
         return appDB.getSongCount();
     }

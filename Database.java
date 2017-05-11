@@ -51,16 +51,25 @@ public class Database {
     public void createTables() throws SQLException {
         String createString =
         "CREATE TABLE songInfo("
-                + "SONGID VARCHAR(30),"
+                + "SONGID INT NOT NULL,"
                 + "TITLE VARCHAR(30),"
                 + "ARTIST VARCHAR(30),"
                 + "ALBUM VARCHAR(30),"
                 + "SONGYEAR VARCHAR(4),"
-                + "GENRE VARCHAR(3)"
+                + "GENRE VARCHAR(3),"
+                + "FileName VARCHAR(50)"
                 + ")";
         PreparedStatement pstmt = conn.prepareStatement(createString);
+        pstmt.executeUpdate();
         pstmt.close();
         
+    }
+    
+    public void dropTables() throws SQLException {
+        query = "DROP TABLE SongInfo";
+        PreparedStatement pstmt = conn.prepareStatement(query);
+        pstmt.executeUpdate();
+        pstmt.close();
     }
 
     /**
@@ -72,8 +81,8 @@ public class Database {
      * @param genre
      * @throws java.sql.SQLException
      */
-    public void addSong(int idNum, String title, String artist, String album, String year, int genre) throws SQLException {
-        String SQL = "INSERT INTO songInfo VALUES (?, ?, ?, ?, ?, ?)";
+    public void addSong(int idNum, String title, String artist, String album, String year, int genre,String fileName) throws SQLException {
+        String SQL = "INSERT INTO songInfo VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement pstmt = conn.prepareStatement(SQL);
         pstmt.setInt(1, idNum);
         pstmt.setString(2, title);
@@ -81,6 +90,7 @@ public class Database {
         pstmt.setString(4, album);
         pstmt.setString(5, year);
         pstmt.setInt(6, genre);
+        pstmt.setString(7, fileName);
         pstmt.executeUpdate();
         pstmt.close();
     }
@@ -171,9 +181,23 @@ public class Database {
         query = "SELECT COUNT(*) AS rowcount FROM SongInfo";
         ResultSet result = stat.executeQuery(query);
         while (result.next()) {
-            rowCount = result.getInt(1);     
+            rowCount = result.getInt(1);
+            System.out.println("Rows in database");
         }
         System.out.println("the row count is " + rowCount);
         return rowCount;
+    }
+
+    public String getSongFile(int songID) throws SQLException {
+       query = "SELECT FileName FROM SongInfo WHERE SONGID=?";
+       String fileName = "";
+       PreparedStatement statement = conn.prepareStatement(query);
+       statement.setInt(1, songID);
+       
+       ResultSet resultSet = statement.executeQuery();
+       while (resultSet.next()) {
+           fileName = resultSet.getString(1);
+       }
+       return fileName;
     }
 }
