@@ -195,6 +195,8 @@ public class View {
         nextItem.setAccelerator(skip);
         KeyStroke previous = KeyStroke.getKeyStroke(37, 2);
         previousItem.setAccelerator(previous);
+        KeyStroke goToRow = KeyStroke.getKeyStroke(76, 2);
+        currentSong.setAccelerator(goToRow);
 
         bottomMenuPanel.add(bottomButtonsPanel, BorderLayout.SOUTH);
         frame.setJMenuBar(appMenuBar);

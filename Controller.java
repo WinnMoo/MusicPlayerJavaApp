@@ -434,11 +434,9 @@ public class Controller {
                         break;
                     case 7:
                         System.out.println("Go to Current Song");
-                        appView.table.changeSelection(appModel.playSongID, 5, true, true);
-                        
-                        
-          
-                        
+                        //currentRowPlaying
+                        appView.table.setRowSelectionInterval(currentRowPlaying, currentRowPlaying);
+ 
                         break;
                     case 8:
                         System.out.println("Volume Up Button pressed");
