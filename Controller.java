@@ -135,28 +135,41 @@ public class Controller {
      * 
      */
     public void addSong(Mp3File songFile, String fileName) throws SQLException {
-        System.out.println(songFile + " is the mp3 file name to play");
-        System.out.println(fileName + " is the filename to save in the db");
-        System.out.println(appView.getCurrentRowCount());
         appModel.addSong(songFile, fileName, appView.getCurrentRowCount());
         System.out.println("In db song count is now " + getSongCount());
-        //appView.tableModel.setRowCount(0);
-       // appView.tableModel.removeRow(0);
-        appView.updateTableView();
-       
-    }
+        int rowID = appView.getCurrentRowCount();
+        
+        Object[] dataRow = new Object[5];
+        for (int i = 0; i < dataRow.length; i++) {
+            switch(i) {
+                case 0:
+                    dataRow[i] = appModel.appDB.getTitle(rowID);
+                    break;
+                case 1:
+                    dataRow[i] = appModel.appDB.getArtist(rowID);
+                    break;
+                case 2:
+                    dataRow[i] = appModel.appDB.getAlbum(rowID);
+                    break;
+                case 3:
+                    dataRow[i] = appModel.appDB.getYear(rowID);
+                    break;
+                case 4: 
+                    dataRow[i] = appModel.appDB.getGenre(rowID);
+                    break;
+            }
+        }
+        appView.tableModel.addRow(dataRow);
+    }   
     
     /**
      * 
      */
     public void deleteSong(int songID) throws SQLException {
-        
         appModel.deleteSong( songID );
-        //appView.tableModel.setRowCount(0);
         appView.tableModel.removeRow(songID);
-        appView.updateTableView();
     }
-
+    
     class KeyboardListener implements KeyListener {
 
         public void keyPressed(KeyEvent e) {
@@ -173,7 +186,7 @@ public class Controller {
             System.out.println(e.getKeyCode());
         }
     }
-
+    
     class MyJButton extends JButton {
 
         public MyJButton(String textToDisplay) {
@@ -181,7 +194,7 @@ public class Controller {
             ClickListener cl = new ClickListener();
             cl.createComponents();
         }
-
+        
         class ClickListener implements ActionListener {
 
             public void actionPerformed(ActionEvent event) {
