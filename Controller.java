@@ -434,6 +434,11 @@ public class Controller {
                         break;
                     case 7:
                         System.out.println("Go to Current Song");
+                        appView.table.changeSelection(appModel.playSongID, 5, true, true);
+                        
+                        
+          
+                        
                         break;
                     case 8:
                         System.out.println("Volume Up Button pressed");
